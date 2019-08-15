@@ -1,0 +1,11 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api rootProject.ext.dependencies["commons-lang3"]
+    api rootProject.ext.dependencies["commons-collections4"]
+
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"

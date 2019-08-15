@@ -1,0 +1,13 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(rootProject.ext.dependencies["self-annotation"])
+    annotationProcessor rootProject.ext.dependencies["auto-service"]
+    compileOnly rootProject.ext.dependencies["auto-service"]
+    api rootProject.ext.dependencies["javapoet"]
+    api rootProject.ext.dependencies["jsoup"]
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
