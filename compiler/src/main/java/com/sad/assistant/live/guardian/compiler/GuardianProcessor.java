@@ -2,12 +2,14 @@ package com.sad.assistant.live.guardian.compiler;
 
 import com.google.auto.service.AutoService;
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
+import com.squareup.javapoet.TypeSpec;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,9 +125,60 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
             }
             else {
                 log.info("-------------------->开始工作");
+                doCreateJavaCode(
+                        filer,
+                        0,
+                        "optimize/BatteryOptimizerImpl.java",
+                        "com.sad.assistant.live.guardian.impl.optimize",
+                        "BatteryOptimizerImpl"
+                        );
+                doCreateJavaCode(
+                        filer,
+                        1,
+                        "optimize/AppBootOptimizerImpl.java",
+                        "com.sad.assistant.live.guardian.impl.optimize",
+                        "AppBootOptimizerImpl"
+                );
             }
         }
         return false;
+    }
+
+
+    private void doCreateJavaCode(
+            Filer filer,
+            int tag,
+            String remotePath,
+            String targetPackgeName,
+            String targetClassName
+    ){
+        SourceCodeFactoryImpl.newInstance()
+                .tag(tag)
+                .path(remotePath)
+                .get(new ISourceCodeFactory.OnGetCodeSuccessListener() {
+                    @Override
+                    public void onGetCode(IServerSourceCodeFuture future) {
+                        future.get().writeIn(
+                                filer,
+                                targetPackgeName,
+                                targetClassName);
+                    }
+                }, new ISourceCodeFactory.OnGetCodeFailureListener() {
+                    @Override
+                    public void onIOErr(IOException e) {
+
+                    }
+
+                    @Override
+                    public void onErr(Error error) {
+
+                    }
+
+                    @Override
+                    public void onHttpIOErr(int actionTag, int code, String msg) {
+
+                    }
+                });
     }
 
 

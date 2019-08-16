@@ -28,6 +28,9 @@ configurations.all {
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(rootProject.ext.dependencies["self-annotation"])
+
     api rootProject.ext.dependencies["sad-datastore"]
     api rootProject.ext.dependencies["okhttp"]
     api rootProject.ext.dependencies["okio"]

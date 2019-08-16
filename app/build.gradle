@@ -38,7 +38,7 @@ configurations.all {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api project(rootProject.ext.dependencies["self-impl"])
+    api project(rootProject.ext.dependencies["self-api"])
     api rootProject.ext.dependencies["appcompat-v7"]
     annotationProcessor project(rootProject.ext.dependencies["self-compiler"])
     testImplementation 'junit:junit:latest.release'
