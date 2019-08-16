@@ -8,6 +8,8 @@ dependencies {
     api rootProject.ext.dependencies["javapoet"]
     api rootProject.ext.dependencies["jsoup"]
 }
-
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 sourceCompatibility = "8"
 targetCompatibility = "8"

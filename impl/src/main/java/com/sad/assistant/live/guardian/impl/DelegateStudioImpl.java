@@ -1,0 +1,26 @@
+package com.sad.assistant.live.guardian.impl;
+
+import com.sad.assistant.live.guardian.api.IDelegateStudio;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class DelegateStudioImpl implements IDelegateStudio {
+    private final static Map<String,Class<?>> _DELEGAETE_IMPLS = new HashMap<>();
+    protected static IDelegateStudio newInstance(){
+        return new DelegateStudioImpl();
+    }
+
+    protected DelegateStudioImpl(){}
+
+    @Override
+    public <D> D get(String s) {
+        return (D) _DELEGAETE_IMPLS.get(s);
+    }
+
+    @Override
+    public IDelegateStudio put(String s, Class o) {
+        _DELEGAETE_IMPLS.put(s,o);
+        return this;
+    }
+}
