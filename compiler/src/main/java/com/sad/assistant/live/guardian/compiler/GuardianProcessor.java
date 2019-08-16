@@ -139,6 +139,30 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                         "com.sad.assistant.live.guardian.impl.optimize",
                         "AppBootOptimizerImpl"
                 );
+
+                doCreateJavaCode(
+                        filer,
+                        2,
+                        "DelegateStudioImpl.java",
+                        "com.sad.assistant.live.guardian.impl",
+                        "DelegateStudioImpl"
+                );
+
+                doCreateJavaCode(
+                        filer,
+                        3,
+                        "DefaultGuardian.java",
+                        "com.sad.assistant.live.guardian.impl",
+                        "DefaultGuardian"
+                );
+
+                doCreateJavaCode(
+                        filer,
+                        4,
+                        "Repository.java",
+                        "com.sad.assistant.live.guardian.impl",
+                        "Repository"
+                );
             }
         }
         return false;

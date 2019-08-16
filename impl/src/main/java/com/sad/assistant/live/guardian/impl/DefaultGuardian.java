@@ -3,11 +3,11 @@ package com.sad.assistant.live.guardian.impl;
 import com.sad.assistant.live.guardian.api.IDelegateStudio;
 import com.sad.assistant.live.guardian.api.IGuardian;
 
-public class Guardian implements IGuardian {
+public class DefaultGuardian implements IGuardian {
     protected static IGuardian newInstance(){
-        return new Guardian();
+        return new DefaultGuardian();
     }
-    protected Guardian(){}
+    protected DefaultGuardian(){}
     IDelegateStudio delegateStudio=null;
     @Override
     public IDelegateStudio delegateStudio() {

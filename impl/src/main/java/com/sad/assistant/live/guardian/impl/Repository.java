@@ -8,7 +8,7 @@ import com.sad.assistant.live.guardian.impl.optimize.BatteryOptimizerImpl;
 public class Repository implements IRepository {
     @Override
     public IGuardian registerIn() {
-        IGuardian guardian=Guardian.newInstance();
+        IGuardian guardian= DefaultGuardian.newInstance();
         guardian.delegateStudio()
                 .put("OPTIMIZE_BATTERY", BatteryOptimizerImpl.class)
                 .put("OPTIMIZE_APPBOOT", AppBootOptimizerImpl.class)
