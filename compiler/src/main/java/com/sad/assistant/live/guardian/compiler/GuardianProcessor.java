@@ -2,6 +2,7 @@ package com.sad.assistant.live.guardian.compiler;
 
 import com.google.auto.service.AutoService;
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
+import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -125,6 +126,17 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
             }
             else {
                 log.info("-------------------->开始工作");
+                try {
+                    TypeSpec.Builder tb_pkgPlaceHolder=TypeSpec.classBuilder("PKGPlaceHolder")
+                            .addModifiers(Modifier.PUBLIC)
+
+                            ;
+                    JavaFile.Builder jb_keeper= JavaFile.builder("com.sad.assistant.live.guardian.impl",tb_pkgPlaceHolder.build());
+                    jb_keeper.build().writeTo(filer);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 doCreateJavaCode(
                         filer,
                         0,

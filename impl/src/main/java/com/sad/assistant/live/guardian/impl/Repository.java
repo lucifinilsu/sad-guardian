@@ -6,6 +6,7 @@ import com.sad.assistant.live.guardian.impl.optimize.AppBootOptimizerImpl;
 import com.sad.assistant.live.guardian.impl.optimize.BatteryOptimizerImpl;
 
 public class Repository implements IRepository {
+    protected Repository(){}
     @Override
     public IGuardian registerIn() {
         IGuardian guardian= DefaultGuardian.newInstance();

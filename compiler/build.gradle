@@ -6,6 +6,8 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["auto-service"]
     compileOnly rootProject.ext.dependencies["auto-service"]
     api rootProject.ext.dependencies["javapoet"]
+    api 'com.squareup:javawriter:latest.release'
+    api 'com.sun.codemodel:codemodel:latest.release'
     api rootProject.ext.dependencies["jsoup"]
 }
 tasks.withType(JavaCompile) {

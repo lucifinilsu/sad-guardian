@@ -37,6 +37,7 @@ ext {
             "auto-service"          : "com.google.auto.service:auto-service:latest.release",
             "javapoet"              : "com.squareup:javapoet:latest.release",
             "jsoup"                 : "org.jsoup:jsoup:latest.release",
+            "javawriter"            : "com.squareup:javawriter:latest.release",
 
             "commons-lang3"         : "org.apache.commons:commons-lang3:latest.release",
             "commons-collections4"  : "org.apache.commons:commons-collections4:latest.release",

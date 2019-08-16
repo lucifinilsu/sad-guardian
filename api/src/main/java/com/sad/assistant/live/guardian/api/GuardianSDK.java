@@ -2,7 +2,7 @@ package com.sad.assistant.live.guardian.api;
 
 import android.content.Context;
 
-public final class GuardianSDK {
+public class GuardianSDK {
 
     private static Context context=null;
     private static IGuardian guardian= null;
@@ -19,7 +19,7 @@ public final class GuardianSDK {
         GuardianSDK.context=context;
         try {
             String clsn="com.sad.assistant.live.guardian.impl.Repository";
-            Class<IRepository> cls= (Class<IRepository>) Class.forName(clsn);
+            Class<IRepository> cls= (Class<IRepository>) Class.forName(clsn,true,IRepository.class.getClassLoader());
             IRepository repository=cls.getDeclaredConstructor().newInstance();
             guardian=repository.registerIn();
         } catch (Exception e) {
