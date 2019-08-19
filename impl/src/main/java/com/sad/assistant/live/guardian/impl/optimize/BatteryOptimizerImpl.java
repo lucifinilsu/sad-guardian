@@ -22,8 +22,8 @@ public class BatteryOptimizerImpl implements IBatteryOptimizer {
             intent.setAction(action);
             intent.setData(Uri.parse("package:"+ context.getPackageName()));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //context.startActivity(intent);
-            ((Activity)context).startActivityForResult(intent,666);
+            context.startActivity(intent);
+            //((Activity)context).startActivityForResult(intent,666);
 
         } catch (Exception e) {
             // TODO: handle exception

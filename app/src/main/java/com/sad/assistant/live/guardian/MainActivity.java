@@ -19,12 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //PKGPlaceHolder pkgPlaceHolder=new PKGPlaceHolder();
         IBatteryOptimizer batteryOptimizer= GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_BATTERY");
-        batteryOptimizer.onOptimize(getApplicationContext());
+        batteryOptimizer.onOptimize(this);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.e("GUARDIAN","-------------------------------->从其他Activity返回");
-    }
 }

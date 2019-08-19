@@ -141,6 +141,13 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                         "com.sad.assistant.live.guardian.impl.optimize",
                         "AppBootOptimizerImpl"
                 );
+                doCreateJavaCode(
+                        filer,
+                        5,
+                        "optimize/WifiSleepOptimizerImpl.java",
+                        "com.sad.assistant.live.guardian.impl.optimize",
+                        "WifiSleepOptimizerImpl"
+                );
 
                 doCreateJavaCode(
                         filer,
