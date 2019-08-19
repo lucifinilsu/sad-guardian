@@ -16,4 +16,16 @@ public class DefaultGuardian implements IGuardian {
         }
         return delegateStudio;
     }
+
+    @Override
+    public void optimizeBattery() {
+
+    }
+
+    @Override
+    public void optimizeAppboot() {
+
+    }
+
+
 }
