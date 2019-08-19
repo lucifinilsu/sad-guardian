@@ -14,8 +14,16 @@ public class DelegateStudioImpl implements IDelegateStudio {
     protected DelegateStudioImpl(){}
 
     @Override
-    public <D> D get(String s) {
-        return (D) _DELEGAETE_IMPLS.get(s);
+    public <D> D getDelegateInstance(String s) {
+        Class<D> cls= (Class<D>) _DELEGAETE_IMPLS.get(s);
+        try {
+            return cls.newInstance();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

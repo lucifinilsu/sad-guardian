@@ -126,16 +126,6 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
             }
             else {
                 log.info("-------------------->开始工作");
-                try {
-                    TypeSpec.Builder tb_pkgPlaceHolder=TypeSpec.classBuilder("PKGPlaceHolder")
-                            .addModifiers(Modifier.PUBLIC)
-
-                            ;
-                    JavaFile.Builder jb_keeper= JavaFile.builder("com.sad.assistant.live.guardian.impl",tb_pkgPlaceHolder.build());
-                    jb_keeper.build().writeTo(filer);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
 
                 doCreateJavaCode(
                         filer,

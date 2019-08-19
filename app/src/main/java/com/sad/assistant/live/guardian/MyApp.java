@@ -12,6 +12,6 @@ public class MyApp extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        //GuardianSDK.init(this);
+        GuardianSDK.init(this);
     }
 }

@@ -1,5 +1,6 @@
 package com.sad.assistant.live.guardian.compiler;
 
+import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javawriter.JavaWriter;
 
@@ -8,16 +9,16 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
 import javax.annotation.processing.Filer;
+import javax.lang.model.element.Modifier;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 
 public interface IServerSourceCode {
 
     static void createClass(Filer filer, String implClassPackageName, String implClassName, String code) throws Exception{
-        FileObject fileObject= filer.getResource(StandardLocation.SOURCE_OUTPUT,implClassPackageName,implClassName+".java");
-        String pa=fileObject.getName();
 
-        File file =new File(pa);
+
+        /*File file =new File(pa);
         if (!file.exists()){
             File dir=file.getParentFile();
             if (!dir.exists()){
@@ -29,9 +30,24 @@ public interface IServerSourceCode {
         JavaWriter jw = new JavaWriter(writer);
         jw.emitPackage(implClassPackageName)
                 .emitStatement(code)
-                .close();
+                .close();*/
+        try {
 
-        //IOUtils.writeFileFromString(pa,code);
+            FileObject fileObject= filer.getResource(StandardLocation.SOURCE_OUTPUT,implClassPackageName,implClassName+".java");
+
+            TypeSpec.Builder tb_pkgPlaceHolder=TypeSpec.classBuilder(implClassName)
+                    .addModifiers(Modifier.PUBLIC)
+                    ;
+            JavaFile.Builder jb_keeper= JavaFile.builder(implClassPackageName,tb_pkgPlaceHolder.build());
+            jb_keeper.build().writeTo(filer);
+
+            String pa=fileObject.getName();
+            IOUtils.writeFileFromString(pa,code);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
     String get();

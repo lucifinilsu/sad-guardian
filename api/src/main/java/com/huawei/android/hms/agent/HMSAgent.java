@@ -364,16 +364,16 @@ public final class HMSAgent implements INoProguard {
         }
 
         /**
-         * 获取玩家实名认证信息 | get player certification info
-         * @param handler 获取玩家实名认证信息结果回调 | get player certification info Result Callback
+         * 获取玩家实名认证信息 | getDelegateInstance player certification info
+         * @param handler 获取玩家实名认证信息结果回调 | getDelegateInstance player certification info Result Callback
          */
         public static void getCertificationInfo(GetCertificationInfoHandler handler) {
             new GetCertificationInfoApi().getCertificationInfo(handler);
         }
 
         /**
-         * 获取玩家实名认证Intent | get player certification intent
-         * @param handler 获取玩家实名认证Intent结果回调 | get player certification intent Result Callback
+         * 获取玩家实名认证Intent | getDelegateInstance player certification intent
+         * @param handler 获取玩家实名认证Intent结果回调 | getDelegateInstance player certification intent Result Callback
          */
         public static void getCertificationIntent(GetCertificationIntentHandler handler) {
             new GetCertificationIntentApi().getCertificationIntent(handler);
