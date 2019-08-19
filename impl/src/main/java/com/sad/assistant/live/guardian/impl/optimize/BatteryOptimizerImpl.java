@@ -1,5 +1,6 @@
 package com.sad.assistant.live.guardian.impl.optimize;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,7 +22,8 @@ public class BatteryOptimizerImpl implements IBatteryOptimizer {
             intent.setAction(action);
             intent.setData(Uri.parse("package:"+ context.getPackageName()));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
+            //context.startActivity(intent);
+            ((Activity)context).startActivityForResult(intent,666);
 
         } catch (Exception e) {
             // TODO: handle exception
