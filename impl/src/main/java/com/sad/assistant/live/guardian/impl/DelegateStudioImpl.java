@@ -4,7 +4,7 @@ import com.sad.assistant.live.guardian.api.IDelegateStudio;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@SuppressWarnings("unchecked")
 public class DelegateStudioImpl implements IDelegateStudio {
     private final static Map<String,Class<?>> _DELEGAETE_IMPLS = new HashMap<String,Class<?>>();
     protected static IDelegateStudio newInstance(){

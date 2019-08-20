@@ -9,7 +9,7 @@ import com.sad.basic.utils.clazz.ClassScannerClient;
 import com.sad.basic.utils.clazz.ClassScannerFilter;
 
 import java.util.Set;
-
+@SuppressWarnings("unchecked")
 public class Repository implements IRepository, ClassScannerFilter {
     private IGuardian guardian= DefaultGuardian.newInstance();
     protected Repository(){}

@@ -3,6 +3,7 @@ package com.sad.assistant.live.guardian.compiler;
 import com.google.auto.service.AutoService;
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
@@ -154,6 +155,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                     .addModifiers(Modifier.PUBLIC)
                     .addSuperinterface(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IRepository"))
                     .addSuperinterface(ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerFilter"))
+                    .addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value","unchecked").build())
                     ;
             FieldSpec f_guardian=FieldSpec.builder(
                     ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardian"),
