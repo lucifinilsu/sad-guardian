@@ -155,7 +155,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                     .addModifiers(Modifier.PUBLIC)
                     .addSuperinterface(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IRepository"))
                     .addSuperinterface(ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerFilter"))
-                    .addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value","unchecked").build())
+                    .addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value","$S","unchecked").build())
                     ;
             FieldSpec f_guardian=FieldSpec.builder(
                     ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardian"),
@@ -263,7 +263,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
 
     @Override
     public void onParseResourceErr(AuthenticationFailureInfo info) {
-        log.error("鉴权校验错误："+info.getCode());
+        log.error("鉴权校验错误："+info.getCode()+"");
     }
 
     @Override
