@@ -21,7 +21,7 @@ public class WifiSleepOptimizerImpl implements IWifiSleepOptimizer {
     }
 
     @Override
-    public void onOptimize(Context context) {
+    public void optimize(Context context) {
         try {
             String targetClass="com.huawei.systemmanager.power.ui.PowerSettingActivity";
             Intent intent = new Intent();

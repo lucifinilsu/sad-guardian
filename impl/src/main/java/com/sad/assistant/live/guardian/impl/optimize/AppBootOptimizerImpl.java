@@ -13,7 +13,7 @@ public class AppBootOptimizerImpl implements IAppBootOptimizer {
     protected AppBootOptimizerImpl(){}
 
     @Override
-    public void onOptimize(Context context) {
+    public void optimize(Context context) {
         try {
             context.startActivity(getSettingIntent());
         }catch (Exception e){

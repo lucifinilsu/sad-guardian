@@ -1,14 +1,17 @@
 package com.sad.assistant.live.guardian;
 
-import android.content.Intent;
+import android.content.Context;
+import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.Handler;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.sad.assistant.live.guardian.api.GuardianSDK;
 import com.sad.assistant.live.guardian.api.optimize.IBatteryOptimizer;
+import com.sad.assistant.live.guardian.api.optimize.IWifiSleepOptimizer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,8 +21,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //PKGPlaceHolder pkgPlaceHolder=new PKGPlaceHolder();
-        IBatteryOptimizer batteryOptimizer= GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_BATTERY");
-        batteryOptimizer.onOptimize(this);
+        /*IBatteryOptimizer batteryOptimizer= GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_BATTERY");
+        batteryOptimizer.optimize(this);*/
+        IWifiSleepOptimizer wifiSleepOptimizer=GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_WIFISLEEP");
+        wifiSleepOptimizer.optimize(this);
+        registerContentObserver(this);
+    }
+
+
+    private void registerContentObserver(Context context){
+        ContentObserver observer = new ContentObserver(new Handler()) {
+            @Override
+            public void onChange(boolean selfChange) {
+                Log.e("GUARDIAN","--------------------------------->数据变化");
+            }
+        };
+        Uri uri=Settings.Global.getUriFor( Settings.Global.WIFI_SLEEP_POLICY);
+        Log.e("GUARDIAN","--------------------------------->uri="+uri.toString());
+        context.getContentResolver().registerContentObserver(uri,false,observer);
+
+
     }
 
 }

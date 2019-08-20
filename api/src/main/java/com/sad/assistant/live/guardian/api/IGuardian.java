@@ -4,8 +4,8 @@ public interface IGuardian {
 
     IDelegateStudio delegateStudio();
 
-    void optimizeBattery();
+    /*void optimizeBattery();
 
-    void optimizeAppboot();
+    void optimizeAppboot();*/
 
 }

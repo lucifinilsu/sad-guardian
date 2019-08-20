@@ -3,8 +3,10 @@ package com.sad.assistant.live.guardian.impl.optimize;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
@@ -15,7 +17,7 @@ public class BatteryOptimizerImpl implements IBatteryOptimizer {
     protected BatteryOptimizerImpl(){}
 
     @Override
-    public void onOptimize(Context context) {
+    public void optimize(Context context) {
         String action= Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
         try {
             Intent intent = new Intent();
@@ -31,6 +33,8 @@ public class BatteryOptimizerImpl implements IBatteryOptimizer {
             navBatteryWhiteList(context);
         }
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -49,7 +53,6 @@ public class BatteryOptimizerImpl implements IBatteryOptimizer {
             intent.setAction(action);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

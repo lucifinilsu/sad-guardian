@@ -4,7 +4,7 @@ import android.content.Context;
 
 public interface IOptimizer {
 
-    void onOptimize(Context context);
+    void optimize(Context context);
 
     boolean isOptimized(Context context);
 
