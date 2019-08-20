@@ -1,5 +1,6 @@
 package com.sad.assistant.live.guardian;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.sad.assistant.live.guardian.api.GuardianSDK;
+import com.sad.assistant.live.guardian.api.optimize.IAppBootOptimizer;
 import com.sad.assistant.live.guardian.api.optimize.IBatteryOptimizer;
 import com.sad.assistant.live.guardian.api.optimize.IWifiSleepOptimizer;
 
@@ -20,25 +22,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //PKGPlaceHolder pkgPlaceHolder=new PKGPlaceHolder();
+
         /*IBatteryOptimizer batteryOptimizer= GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_BATTERY");
         batteryOptimizer.optimize(this);*/
-        IWifiSleepOptimizer wifiSleepOptimizer=GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_WIFISLEEP");
+
+        /*IWifiSleepOptimizer wifiSleepOptimizer=GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_WIFISLEEP");
         wifiSleepOptimizer.optimize(this);
+        */
+
+        IAppBootOptimizer appBootOptimizer=GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_APPBOOT");
+        appBootOptimizer.optimize(this);
+
         registerContentObserver(this);
+    }
+
+    private void bootStatus(){
+
     }
 
 
     private void registerContentObserver(Context context){
         ContentObserver observer = new ContentObserver(new Handler()) {
             @Override
-            public void onChange(boolean selfChange) {
-                Log.e("GUARDIAN","--------------------------------->数据变化");
+            public void onChange(boolean selfChange,Uri uri) {
+                Log.e("GUARDIAN","--------------------------------->数据变化:"+uri.toString());
             }
         };
-        Uri uri=Settings.Global.getUriFor( Settings.Global.WIFI_SLEEP_POLICY);
+        //Uri uri=Settings.Global.getUriFor( Settings.Global.WIFI_SLEEP_POLICY);
+        //Uri uri= Uri.parse("content://android.provider/");
+        Uri uri= Settings.Secure.CONTENT_URI;
         Log.e("GUARDIAN","--------------------------------->uri="+uri.toString());
-        context.getContentResolver().registerContentObserver(uri,false,observer);
+        context.getContentResolver().registerContentObserver(uri,true,observer);
 
 
     }

@@ -26,7 +26,7 @@ public class AppBootOptimizerImpl implements IAppBootOptimizer {
         ComponentName componentName = null;
 
         String brand = android.os.Build.BRAND;
-        Log.e("keeplive","-------------------------> device : "+brand.toLowerCase());
+        //Log.e("keeplive","-------------------------> device : "+brand.toLowerCase());
 
         switch (brand.toLowerCase()){
             case "samsung":

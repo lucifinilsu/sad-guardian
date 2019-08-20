@@ -31,4 +31,9 @@ public class DelegateStudioImpl implements IDelegateStudio {
         _DELEGAETE_IMPLS.put(s,o);
         return this;
     }
+
+    @Override
+    public int size() {
+        return _DELEGAETE_IMPLS.size();
+    }
 }

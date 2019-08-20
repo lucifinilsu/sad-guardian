@@ -6,5 +6,7 @@ public interface IDelegateStudio {
 
     IDelegateStudio put(String s,Class o);
 
+    int size();
+
 
 }
