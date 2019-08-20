@@ -14,7 +14,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
-                        AppPackageName:"com.sad.assistant.keeplive.demo",//rootProject.ext.android.applicationId,
+                        AppPackageName:rootProject.ext.android.applicationId,
                         AppGurdianId:'123abc'
                 ]
             }

@@ -11,14 +11,14 @@ import java.io.IOException;
 public class AuthenticationMaster {
     protected final static int ACTION_TAG_AUTHENTICATION=0;
     static AuthenticationFuture start(
-            String appPkg,
+            String appId,
             OnCompiledAuthenticationSuccessCallback successCallback,
             OnCompiledAuthenticationFailureCallback failureCallback,
             ProcessorLog log
     ){
         AuthenticationFuture future=new AuthenticationFuture();
         try {
-            Connection connection= Jsoup.connect("https://raw.githubusercontent.com/lucifinilsu/SmartAndroidDeveloper/master/"+ValidUtils.encryptMD5ToString(appPkg).toLowerCase()+".xml");
+            Connection connection= Jsoup.connect("https://raw.githubusercontent.com/lucifinilsu/SmartAndroidDeveloper/master/"+ValidUtils.encryptMD5ToString(appId).toLowerCase()+".xml");
             connection.method(Connection.Method.GET);
             connection.timeout(10000);
             connection.followRedirects(true);

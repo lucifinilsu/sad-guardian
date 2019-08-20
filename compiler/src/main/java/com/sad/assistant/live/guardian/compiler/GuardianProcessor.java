@@ -115,7 +115,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                 log.error(note);
                 return true;
             }
-            AuthenticationFuture future=AuthenticationMaster.start(mainPkgName, new OnCompiledAuthenticationSuccessCallback() {
+            AuthenticationFuture future=AuthenticationMaster.start(gurdianId, new OnCompiledAuthenticationSuccessCallback() {
                 @Override
                 public void onDone(AuthenticationSuccessInfo successInfo) {
 

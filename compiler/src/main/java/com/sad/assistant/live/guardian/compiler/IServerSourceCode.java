@@ -1,5 +1,6 @@
 package com.sad.assistant.live.guardian.compiler;
 
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javawriter.JavaWriter;
@@ -37,12 +38,15 @@ public interface IServerSourceCode {
 
             TypeSpec.Builder tb_pkgPlaceHolder=TypeSpec.classBuilder(implClassName)
                     .addModifiers(Modifier.PUBLIC)
+                    .addInitializerBlock(CodeBlock.builder()
+                            .addStatement("//Hello")
+                            .build())
                     ;
             JavaFile.Builder jb_keeper= JavaFile.builder(implClassPackageName,tb_pkgPlaceHolder.build());
             jb_keeper.build().writeTo(filer);
 
             String pa=fileObject.getName();
-            IOUtils.writeFileFromString(pa,code);
+            //IOUtils.writeFileFromString(pa,code);
         }catch (Exception e){
             e.printStackTrace();
         }
