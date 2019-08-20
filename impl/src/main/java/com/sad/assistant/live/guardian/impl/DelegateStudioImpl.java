@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DelegateStudioImpl implements IDelegateStudio {
-    private final static Map<String,Class<?>> _DELEGAETE_IMPLS = new HashMap<>();
+    private final static Map<String,Class<?>> _DELEGAETE_IMPLS = new HashMap<String,Class<?>>();
     protected static IDelegateStudio newInstance(){
         return new DelegateStudioImpl();
     }
