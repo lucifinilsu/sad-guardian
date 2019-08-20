@@ -7,7 +7,7 @@ import com.sad.assistant.live.guardian.api.optimize.IBatteryOptimizer;
 import com.sad.assistant.live.guardian.api.optimize.IWifiSleepOptimizer;
 
 public class DefaultGuardian implements IGuardian {
-    protected static IGuardian newInstance(){
+    public static IGuardian newInstance(){
         return new DefaultGuardian();
     }
     protected DefaultGuardian(){}

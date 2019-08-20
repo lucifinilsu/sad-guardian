@@ -116,6 +116,7 @@ public class AuthenticationMaster {
             future.setSuccessful(false);
         }
         catch (IOException ioe){
+            ioe.printStackTrace();
             AuthenticationFailureInfo failureInfo=new AuthenticationFailureInfo();
             failureInfo.setCode(AuthenticationFailureInfo.PARSE_ERR);
             failureInfo.setMsg(ioe.getMessage());
@@ -128,6 +129,7 @@ public class AuthenticationMaster {
             future.setSuccessful(false);
         }
         catch (Error err){
+            err.printStackTrace();
             AuthenticationFailureInfo failureInfo=new AuthenticationFailureInfo();
             failureInfo.setCode(AuthenticationFailureInfo.PARSE_ERR);
             failureInfo.setMsg(err.getMessage());
