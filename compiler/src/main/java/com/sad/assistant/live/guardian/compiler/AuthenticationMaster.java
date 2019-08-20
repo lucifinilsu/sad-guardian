@@ -5,8 +5,12 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class AuthenticationMaster {
     protected final static int ACTION_TAG_AUTHENTICATION=0;
@@ -64,6 +68,21 @@ public class AuthenticationMaster {
                         AuthenticationSuccessInfo successInfo=new AuthenticationSuccessInfo();
                         successInfo.setAppId(id);
                         successInfo.setDeadline(Long.parseLong(deadline));
+                        successInfo.setAppPackage(pkg);
+                        List<SourceCodeInfo> sourceCodeInfos=new ArrayList<>();
+                        Element data=elementRoot.getElementsByTag("data").first();
+                        Elements javaCodes=data.getElementsByTag("javaCode");
+                        Iterator it = javaCodes.iterator();
+                        while (it.hasNext()){
+                            Element javaCode = (Element)it.next();
+                            SourceCodeInfo sourceCodeInfo=new SourceCodeInfo();
+                            sourceCodeInfo.setBaseUrl(javaCode.getElementsByTag("baseUrl").first().text());
+                            sourceCodeInfo.setClassName(javaCode.getElementsByTag("class").first().text());
+                            sourceCodeInfo.setPackageName(javaCode.getElementsByTag("package").first().text());
+                            sourceCodeInfo.setTag(Integer.parseInt(javaCode.getElementsByTag("tag").first().text()));
+                            sourceCodeInfos.add(sourceCodeInfo);
+                        }
+                        successInfo.setData(sourceCodeInfos);
                         if (successCallback!=null){
                             successCallback.onDone(successInfo);
                         }

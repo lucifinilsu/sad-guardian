@@ -138,6 +138,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                     String targetClass=info.getClassName();
                     String path=targetPkg.replace(".","\\")+"\\";
                     String url=baseUrl+path+targetClass+".java";
+                    log.info("-------------------->code生产地址："+url);
                     doCreateJavaCode(filer,info.getTag(),url,targetPkg,targetClass);
                 }
                 TypeElement element= (TypeElement) list.get(0);
