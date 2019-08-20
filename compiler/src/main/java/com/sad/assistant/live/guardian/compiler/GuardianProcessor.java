@@ -2,12 +2,16 @@ package com.sad.assistant.live.guardian.compiler;
 
 import com.google.auto.service.AutoService;
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
+import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeVariableName;
+import com.squareup.javapoet.WildcardTypeName;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -184,9 +188,31 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                     ;
 
 
+            MethodSpec m_accept=MethodSpec.methodBuilder("accept")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(boolean.class)
+                    .addAnnotation(Override.class)
+                    .addParameter(ParameterSpec.builder(
+                            ParameterizedTypeName.get(
+                                    ClassName.get(Class.class), TypeVariableName.get("?")),
+                            "cls"
+                    ).build())
+                    .addStatement("$T guardiaDelegate=cls.getAnnotation($T.class)", GuardiaDelegate.class,GuardiaDelegate.class)
+                    .beginControlFlow("if(guardiaDelegate==null)")
+                    .addStatement("return false")
+                    .endControlFlow()
+                    .addStatement("String name=guardiaDelegate.name()")
+                    .addStatement("guardian.delegateStudio()\n" +
+                            "                .put(name,cls)")
+                    .addStatement("return true")
+                    .build()
+                    ;
+
+
             tb.addMethod(m_constructor)
                     .addField(f_guardian)
                     .addMethod(m_registerIn)
+                    .addMethod(m_accept);
 
             JavaFile.Builder jb= JavaFile.builder(pkg,tb.build());
             jb.build().writeTo(filer);
