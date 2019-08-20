@@ -3,15 +3,37 @@
     <appId>a906449d5769fa7361d7ecc6aa3f6d28</appId>
     <deadline>1571479939000</deadline>
     <appPackage>com.sad.assistant.live.guardian</appPackage>
-    <sourceCode enable='0'>
+    <data enable='0'>
         <javaCode>
             <tag>0</tag>
-            <url>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/com/sad/assistant/live/guardian/impl/DefaultGuardian.java</url>
-            <targetClass>DefaultGuardian</targetClass>
-            <targetPackage></targetPackage>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl</package>
+            <class>DefaultGuardian</class>
         </javaCode>
-    </sourceCode>
-    <repositoryPackage></repositoryPackage>
-    <sourceCodeBaseUrl></sourceCodeBaseUrl>
+        <javaCode>
+            <tag>1</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl</package>
+            <class>DelegateStudioImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>2</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
+            <class>AppBootOptimizerImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>3</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
+            <class>BatteryOptimizerImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>4</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
+            <class>WifiSleepOptimizerImpl</class>
+        </javaCode>
+    </data>
 
 </app>

@@ -127,7 +127,7 @@ public class ValidUtils {
     /**
      * Return the hex string of file's MD5 encryption.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @return the hex string of file's MD5 encryption
      */
     public static String encryptMD5File2String(final String filePath) {
@@ -138,7 +138,7 @@ public class ValidUtils {
     /**
      * Return the bytes of file's MD5 encryption.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @return the bytes of file's MD5 encryption
      */
     public static byte[] encryptMD5File(final String filePath) {

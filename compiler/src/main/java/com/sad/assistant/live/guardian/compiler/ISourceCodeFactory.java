@@ -8,9 +8,9 @@ import javax.tools.StandardLocation;
 
 public interface ISourceCodeFactory {
 
-    String baseUrl="https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/com/sad/assistant/live/guardian/impl/";
+    //String baseUrl="https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/com/sad/assistant/live/guardian/impl/";
 
-    ISourceCodeFactory path(String path);
+    ISourceCodeFactory url(String url);
 
     ISourceCodeFactory tag(int tag);
 

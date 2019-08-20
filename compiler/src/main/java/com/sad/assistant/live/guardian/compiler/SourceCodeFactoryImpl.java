@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class SourceCodeFactoryImpl implements ISourceCodeFactory {
 
-    private String path="";
+    private String url ="";
     private int tag=-1;
 
     protected SourceCodeFactoryImpl(){}
@@ -18,8 +18,8 @@ public class SourceCodeFactoryImpl implements ISourceCodeFactory {
     }
 
     @Override
-    public ISourceCodeFactory path(String path) {
-        this.path=path;
+    public ISourceCodeFactory url(String url) {
+        this.url =url;
         return this;
     }
 
@@ -31,7 +31,7 @@ public class SourceCodeFactoryImpl implements ISourceCodeFactory {
 
     @Override
     public IServerSourceCodeFuture  get(OnGetCodeSuccessListener successListener, OnGetCodeFailureListener failureListener) {
-        String url=baseUrl+path;
+        //String url=baseUrl+ this.url;
         IServerSourceCodeFuture future=ServerSourceCodeFutureImpl.newInstance();
         try {
             Connection connection= Jsoup.connect(url);

@@ -1,17 +1,16 @@
-package com.sad.assistant.live.guardian.impl.optimize;
+package com.sad.assistant.live.guardian.impl.delegate.optimize;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
-import com.sad.assistant.live.guardian.api.optimize.IBatteryOptimizer;
 
+import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
+import com.sad.assistant.live.guardian.api.optimize.IBatteryOptimizer;
+@GuardiaDelegate(name = "OPTIMIZE_BATTERY")
 public class BatteryOptimizerImpl implements IBatteryOptimizer {
 
     protected BatteryOptimizerImpl(){}

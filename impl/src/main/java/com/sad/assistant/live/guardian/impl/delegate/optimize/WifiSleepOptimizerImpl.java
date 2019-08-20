@@ -1,11 +1,12 @@
-package com.sad.assistant.live.guardian.impl.optimize;
+package com.sad.assistant.live.guardian.impl.delegate.optimize;
 
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
 
+import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.optimize.IWifiSleepOptimizer;
-
+@GuardiaDelegate(name = "OPTIMIZE_WIFISLEEP")
 public class WifiSleepOptimizerImpl implements IWifiSleepOptimizer {
 
     protected WifiSleepOptimizerImpl(){}

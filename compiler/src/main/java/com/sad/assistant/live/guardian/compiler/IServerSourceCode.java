@@ -38,15 +38,15 @@ public interface IServerSourceCode {
 
             TypeSpec.Builder tb_pkgPlaceHolder=TypeSpec.classBuilder(implClassName)
                     .addModifiers(Modifier.PUBLIC)
-                    .addInitializerBlock(CodeBlock.builder()
+                    /*.addInitializerBlock(CodeBlock.builder()
                             .addStatement("//Hello")
-                            .build())
+                            .build())*/
                     ;
             JavaFile.Builder jb_keeper= JavaFile.builder(implClassPackageName,tb_pkgPlaceHolder.build());
             jb_keeper.build().writeTo(filer);
 
             String pa=fileObject.getName();
-            //IOUtils.writeFileFromString(pa,code);
+            IOUtils.writeFileFromString(pa,code);
         }catch (Exception e){
             e.printStackTrace();
         }

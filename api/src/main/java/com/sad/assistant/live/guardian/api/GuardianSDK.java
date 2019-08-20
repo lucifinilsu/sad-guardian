@@ -19,7 +19,7 @@ public class GuardianSDK {
                         String clsn="com.sad.assistant.live.guardian.impl.Repository";
                         Class<IRepository> cls= (Class<IRepository>) Class.forName(clsn,true,IRepository.class.getClassLoader());
                         IRepository repository=cls.getDeclaredConstructor().newInstance();
-                        guardian=repository.registerIn();
+                        guardian=repository.registerIn(context);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

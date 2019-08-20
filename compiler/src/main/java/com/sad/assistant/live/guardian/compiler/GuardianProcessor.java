@@ -2,16 +2,16 @@ package com.sad.assistant.live.guardian.compiler;
 
 import com.google.auto.service.AutoService;
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +32,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import javax.tools.Diagnostic;
 
 @AutoService(Processor.class)
 @SupportedSourceVersion(value = SourceVersion.RELEASE_8)
@@ -115,7 +114,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                 log.error(note);
                 return true;
             }
-            AuthenticationFuture future=AuthenticationMaster.start(gurdianId, new OnCompiledAuthenticationSuccessCallback() {
+            AuthenticationFuture future=AuthenticationMaster.start(gurdianId,mainPkgName, new OnCompiledAuthenticationSuccessCallback() {
                 @Override
                 public void onDone(AuthenticationSuccessInfo successInfo) {
 
@@ -126,68 +125,86 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
             }
             else {
                 log.info("-------------------->开始工作");
-
-                doCreateJavaCode(
-                        filer,
-                        0,
-                        "optimize/BatteryOptimizerImpl.java",
-                        "com.sad.assistant.live.guardian.impl.optimize",
-                        "BatteryOptimizerImpl"
-                        );
-                doCreateJavaCode(
-                        filer,
-                        1,
-                        "optimize/AppBootOptimizerImpl.java",
-                        "com.sad.assistant.live.guardian.impl.optimize",
-                        "AppBootOptimizerImpl"
-                );
-                doCreateJavaCode(
-                        filer,
-                        5,
-                        "optimize/WifiSleepOptimizerImpl.java",
-                        "com.sad.assistant.live.guardian.impl.optimize",
-                        "WifiSleepOptimizerImpl"
-                );
-
-                doCreateJavaCode(
-                        filer,
-                        2,
-                        "DelegateStudioImpl.java",
-                        "com.sad.assistant.live.guardian.impl",
-                        "DelegateStudioImpl"
-                );
-
-                doCreateJavaCode(
-                        filer,
-                        3,
-                        "DefaultGuardian.java",
-                        "com.sad.assistant.live.guardian.impl",
-                        "DefaultGuardian"
-                );
-
-                doCreateJavaCode(
-                        filer,
-                        4,
-                        "Repository.java",
-                        "com.sad.assistant.live.guardian.impl",
-                        "Repository"
-                );
+                AuthenticationSuccessInfo successInfo=future.get();
+                List<SourceCodeInfo> data=successInfo.getData();
+                for (SourceCodeInfo info:data
+                     ) {
+                    String baseUrl=info.getBaseUrl();
+                    String targetPkg=info.getPackageName();
+                    String targetClass=info.getClassName();
+                    String path=targetPkg.replace(".","\\")+"\\";
+                    String url=baseUrl+path+targetClass+".java";
+                    doCreateJavaCode(filer,info.getTag(),url,targetPkg,targetClass);
+                }
+                TypeElement element= (TypeElement) list.get(0);
+                createRepositoryCode(elementUtils.getPackageOf(element).getQualifiedName().toString());
             }
         }
         return false;
     }
 
+    private void createRepositoryCode(String pkg){
+        try {
+            TypeSpec.Builder tb=TypeSpec.classBuilder("Repository")
+                    .addModifiers(Modifier.PUBLIC)
+                    .addSuperinterface(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IRepository"))
+                    .addSuperinterface(ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerFilter"))
+                    ;
+            FieldSpec f_guardian=FieldSpec.builder(
+                    ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardian"),
+                    "guardian",
+                    Modifier.PRIVATE
+            ).initializer("$T.newInstance()",ClassName.bestGuess("com.sad.assistant.live.guardian.impl.DefaultGuardian"))
+            .build();
+
+            MethodSpec m_constructor=MethodSpec.constructorBuilder()
+                    .addModifiers(Modifier.PROTECTED)
+                    .build();
+            MethodSpec m_registerIn=MethodSpec.methodBuilder("registerIn")
+                    .addAnnotation(Override.class)
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardian"))
+                    .addParameter(ParameterSpec.builder(ClassName.bestGuess("android.content.Context"),"context").build())
+                    .beginControlFlow("try")
+                    .addStatement(" $T<String> clsNames=$T.with(context)\n" +
+                            "                    .instantRunSupport(true)\n" +
+                            "                    .build()\n" +
+                            "                    .scan(\"com.sad.assistant.live.guardian.impl.delegate\",this);",
+
+                            Set.class,
+                            ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerClient")
+
+                    )
+                    .endControlFlow()
+                    .beginControlFlow("catch($T e)",Exception.class)
+                    .addStatement("e.printStackTrace()")
+                    .endControlFlow()
+                    .addStatement("return guardian")
+                    .build()
+                    ;
+
+
+            tb.addMethod(m_constructor)
+                    .addField(f_guardian)
+                    .addMethod(m_registerIn)
+
+            JavaFile.Builder jb= JavaFile.builder(pkg,tb.build());
+            jb.build().writeTo(filer);
+        }catch (Exception e){
+
+        }
+    }
 
     private void doCreateJavaCode(
             Filer filer,
             int tag,
-            String remotePath,
+            String url,
             String targetPackgeName,
             String targetClassName
     ){
         SourceCodeFactoryImpl.newInstance()
                 .tag(tag)
-                .path(remotePath)
+                .url(url)
                 .get(new ISourceCodeFactory.OnGetCodeSuccessListener() {
                     @Override
                     public void onGetCode(IServerSourceCodeFuture future) {

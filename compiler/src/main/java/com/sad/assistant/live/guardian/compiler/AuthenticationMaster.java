@@ -12,6 +12,7 @@ public class AuthenticationMaster {
     protected final static int ACTION_TAG_AUTHENTICATION=0;
     static AuthenticationFuture start(
             String appId,
+            String p,
             OnCompiledAuthenticationSuccessCallback successCallback,
             OnCompiledAuthenticationFailureCallback failureCallback,
             ProcessorLog log
@@ -32,13 +33,12 @@ public class AuthenticationMaster {
                 Element elementRoot=doc.getElementsByTag("app").first();
                 String id=elementRoot.getElementsByTag("appId").first().text();
                 String deadline=elementRoot.getElementsByTag("deadline").first().text();
+                String pkg=elementRoot.getElementsByTag("appPackage").first().text();
                 //开始鉴权
-                long curr=System.currentTimeMillis();
-                long dead=Long.parseLong(deadline);
-                if (dead<curr){
+                if (!p.equals(pkg)){
                     AuthenticationFailureInfo failureInfo=new AuthenticationFailureInfo();
-                    failureInfo.setCode(AuthenticationFailureInfo.AGENCIES_HAVE_EXPIRED);
-                    failureInfo.setMsg("您的保活引擎SDK的开发者授权已经过期");
+                    failureInfo.setCode(AuthenticationFailureInfo.INVALID_PACKAGE_NAME);
+                    failureInfo.setMsg("您的保活引擎SDK的开发者授权失败：App包名无效");
                     if (failureCallback!=null){
                         failureCallback.onInvalid(failureInfo);
                     }
@@ -47,14 +47,29 @@ public class AuthenticationMaster {
                     future.setSuccessful(false);
                 }
                 else {
-                    AuthenticationSuccessInfo successInfo=new AuthenticationSuccessInfo();
-                    successInfo.setAppId(id);
-                    successInfo.setDeadline(Long.parseLong(deadline));
-                    if (successCallback!=null){
-                        successCallback.onDone(successInfo);
+                    long curr=System.currentTimeMillis();
+                    long dead=Long.parseLong(deadline);
+                    if (dead<curr){
+                        AuthenticationFailureInfo failureInfo=new AuthenticationFailureInfo();
+                        failureInfo.setCode(AuthenticationFailureInfo.AGENCIES_HAVE_EXPIRED);
+                        failureInfo.setMsg("您的保活引擎SDK的开发者授权已经过期");
+                        if (failureCallback!=null){
+                            failureCallback.onInvalid(failureInfo);
+                        }
+
+                        future.set(failureInfo);
+                        future.setSuccessful(false);
                     }
-                    future.setSuccessful(true);
-                    future.set(successInfo);
+                    else {
+                        AuthenticationSuccessInfo successInfo=new AuthenticationSuccessInfo();
+                        successInfo.setAppId(id);
+                        successInfo.setDeadline(Long.parseLong(deadline));
+                        if (successCallback!=null){
+                            successCallback.onDone(successInfo);
+                        }
+                        future.setSuccessful(true);
+                        future.set(successInfo);
+                    }
                 }
 
             }

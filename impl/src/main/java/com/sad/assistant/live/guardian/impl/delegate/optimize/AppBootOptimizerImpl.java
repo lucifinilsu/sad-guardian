@@ -1,13 +1,13 @@
-package com.sad.assistant.live.guardian.impl.optimize;
+package com.sad.assistant.live.guardian.impl.delegate.optimize;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
-import android.util.Log;
 
+import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.optimize.IAppBootOptimizer;
-
+@GuardiaDelegate(name = "OPTIMIZE_APPBOOT")
 public class AppBootOptimizerImpl implements IAppBootOptimizer {
 
     protected AppBootOptimizerImpl(){}

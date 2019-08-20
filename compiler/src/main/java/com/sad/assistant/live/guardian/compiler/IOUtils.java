@@ -34,7 +34,7 @@ public final class IOUtils {
     /**
      * Write file from input stream.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param is       The input stream.
      * @return {@code true}: success<br>{@code false}: fail
      */
@@ -45,7 +45,7 @@ public final class IOUtils {
     /**
      * Write file from input stream.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param is       The input stream.
      * @param append   True to append, false otherwise.
      * @return {@code true}: success<br>{@code false}: fail
@@ -110,7 +110,7 @@ public final class IOUtils {
     /**
      * Write file from bytes by stream.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param bytes    The bytes.
      * @return {@code true}: success<br>{@code false}: fail
      */
@@ -121,7 +121,7 @@ public final class IOUtils {
     /**
      * Write file from bytes by stream.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param bytes    The bytes.
      * @param append   True to append, false otherwise.
      * @return {@code true}: success<br>{@code false}: fail
@@ -177,7 +177,7 @@ public final class IOUtils {
     /**
      * Write file from bytes by channel.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param bytes    The bytes.
      * @param isForce  是否写入文件
      * @return {@code true}: success<br>{@code false}: fail
@@ -191,7 +191,7 @@ public final class IOUtils {
     /**
      * Write file from bytes by channel.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param bytes    The bytes.
      * @param append   True to append, false otherwise.
      * @param isForce  True to force write file, false otherwise.
@@ -256,7 +256,7 @@ public final class IOUtils {
     /**
      * Write file from bytes by map.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param bytes    The bytes.
      * @param isForce  True to force write file, false otherwise.
      * @return {@code true}: success<br>{@code false}: fail
@@ -270,7 +270,7 @@ public final class IOUtils {
     /**
      * Write file from bytes by map.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param bytes    The bytes.
      * @param append   True to append, false otherwise.
      * @param isForce  True to force write file, false otherwise.
@@ -335,7 +335,7 @@ public final class IOUtils {
     /**
      * Write file from string.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param content  The string of content.
      * @return {@code true}: success<br>{@code false}: fail
      */
@@ -346,7 +346,7 @@ public final class IOUtils {
     /**
      * Write file from string.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param content  The string of content.
      * @param append   True to append, false otherwise.
      * @return {@code true}: success<br>{@code false}: fail
@@ -407,7 +407,7 @@ public final class IOUtils {
     /**
      * Return the lines in file.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @return the lines in file
      */
     public static List<String> readFile2List(final String filePath) {
@@ -417,7 +417,7 @@ public final class IOUtils {
     /**
      * Return the lines in file.
      *
-     * @param filePath    The path of file.
+     * @param filePath    The url of file.
      * @param charsetName The name of charset.
      * @return the lines in file
      */
@@ -449,7 +449,7 @@ public final class IOUtils {
     /**
      * Return the lines in file.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @param st       The line's index of start.
      * @param end      The line's index of end.
      * @return the lines in file
@@ -461,7 +461,7 @@ public final class IOUtils {
     /**
      * Return the lines in file.
      *
-     * @param filePath    The path of file.
+     * @param filePath    The url of file.
      * @param st          The line's index of start.
      * @param end         The line's index of end.
      * @param charsetName The name of charset.
@@ -536,7 +536,7 @@ public final class IOUtils {
     /**
      * Return the string in file.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @return the string in file
      */
     public static String readFile2String(final String filePath) {
@@ -546,7 +546,7 @@ public final class IOUtils {
     /**
      * Return the string in file.
      *
-     * @param filePath    The path of file.
+     * @param filePath    The url of file.
      * @param charsetName The name of charset.
      * @return the string in file
      */
@@ -589,7 +589,7 @@ public final class IOUtils {
     /**
      * Return the bytes in file by stream.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @return the bytes in file
      */
     public static byte[] readFile2BytesByStream(final String filePath) {
@@ -615,7 +615,7 @@ public final class IOUtils {
     /**
      * Return the bytes in file by channel.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @return the bytes in file
      */
     public static byte[] readFile2BytesByChannel(final String filePath) {
@@ -655,7 +655,7 @@ public final class IOUtils {
     /**
      * Return the bytes in file by map.
      *
-     * @param filePath The path of file.
+     * @param filePath The url of file.
      * @return the bytes in file
      */
     public static byte[] readFile2BytesByMap(final String filePath) {
