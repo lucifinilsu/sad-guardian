@@ -59,7 +59,6 @@ public class Service5Delegate implements IServiceDelegate {
                                   ContentProviderClient provider, SyncResult syncResult) {
 
             //账户同步
-            Log.e("GUARDIAN","---------------------->账户同步：name="+account.name+",syncResult="+syncResult.toString());
         }
     }
 }
