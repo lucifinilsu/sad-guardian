@@ -13,13 +13,13 @@ import com.sad.assistant.live.guardian.api.provider.AccountSyncProvider;
 
 @GuardiaDelegate(name = "OPTIMIZE_ACCOUNTSYNC")
 public class AccountSyncOptimizer implements IOptimizer {
-    private String accountType="";
+    private String accountType="com.sad.assistant.live.guardian";
     protected AccountSyncOptimizer(){
 
     }
     @Override
     public void optimize(Context context) {
-        accountType=context.getPackageName();
+        //accountType=context.getPackageName();
         if (isOptimized(context)){
             autoSync(context);
             return;
