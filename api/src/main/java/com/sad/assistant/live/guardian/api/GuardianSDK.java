@@ -6,6 +6,9 @@ import android.content.Context;
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
 import com.sad.assistant.live.guardian.api.init.IAppWork;
 import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
+
+import java.lang.reflect.Constructor;
+
 @SuppressWarnings("unchecked")
 public class GuardianSDK {
 
@@ -35,7 +38,9 @@ public class GuardianSDK {
                         try {
                             String c=application.getClass().getPackage().getName()+".Repository";
                             Class<IRepository> cls= (Class<IRepository>) Class.forName(c,true,IRepository.class.getClassLoader());
-                            IRepository repository=cls.getDeclaredConstructor().newInstance();
+                            Constructor<IRepository> constructor=cls.getDeclaredConstructor();
+                            constructor.setAccessible(true);
+                            IRepository repository=constructor.newInstance();
                             sdk=new GuardianSDK();
                             sdk.guardian=repository.registerIn(application);
                         } catch (Exception e) {

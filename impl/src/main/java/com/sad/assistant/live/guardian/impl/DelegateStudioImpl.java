@@ -2,6 +2,7 @@ package com.sad.assistant.live.guardian.impl;
 
 import com.sad.assistant.live.guardian.api.IDelegateStudio;
 
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 @SuppressWarnings("unchecked")
@@ -17,10 +18,10 @@ public class DelegateStudioImpl implements IDelegateStudio {
     public <D> D getDelegateInstance(String s) {
         Class<D> cls= (Class<D>) _DELEGAETE_IMPLS.get(s);
         try {
-            return cls.newInstance();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+            Constructor<D> constructor=cls.getConstructor();
+            constructor.setAccessible(true);
+            return constructor.newInstance();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
