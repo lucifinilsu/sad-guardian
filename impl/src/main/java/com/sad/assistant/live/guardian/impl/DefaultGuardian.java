@@ -5,7 +5,9 @@ import com.sad.assistant.live.guardian.api.IGuardian;
 import com.sad.assistant.live.guardian.api.init.IAppWork;
 import com.sad.assistant.live.guardian.api.optimize.IAppBootOptimizer;
 import com.sad.assistant.live.guardian.api.optimize.IBatteryOptimizer;
+import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
 import com.sad.assistant.live.guardian.api.optimize.IWifiSleepOptimizer;
+import com.sad.assistant.live.guardian.api.service.IServiceDelegate;
 
 public class DefaultGuardian implements IGuardian {
     public static IGuardian newInstance(){
@@ -39,5 +41,15 @@ public class DefaultGuardian implements IGuardian {
     @Override
     public IAppWork appWork() {
         return delegateStudio().getDelegateInstance("INIT_APPWORK");
+    }
+
+    @Override
+    public IServiceDelegate service(int id) {
+        return delegateStudio().getDelegateInstance("SERVICE_"+id);
+    }
+
+    @Override
+    public IOptimizer accountSyncOptimizer() {
+        return delegateStudio().getDelegateInstance("OPTIMIZE_ACCOUNTSYNC");
     }
 }

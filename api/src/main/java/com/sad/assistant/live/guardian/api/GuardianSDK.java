@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
 import com.sad.assistant.live.guardian.api.init.IAppWork;
+import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
 
 public class GuardianSDK {
 
@@ -47,39 +48,12 @@ public class GuardianSDK {
             if (sdk!=null){
                 IAppWork appWork=sdk.guardian.appWork();
                 application.registerActivityLifecycleCallbacks(appWork.activityLifecycleCallbacks(null));
+                IOptimizer accountSyncOptimizer=sdk.guardian.accountSyncOptimizer();
+                accountSyncOptimizer.optimize(application);
             }
         }
 
     }
-
-    /*private static Context context=null;
-    private static IGuardian guardian= null;
-
-    public static Context getContext() {
-        return context;
-    }
-
-    public static IGuardian getDefault() {
-        if (guardian == null) {
-            synchronized (IGuardian.class) {
-                if (guardian == null) {
-                    try {
-                        String clsn="com.sad.assistant.live.guardian.impl.Repository";
-                        Class<IRepository> cls= (Class<IRepository>) Class.forName(clsn,true,IRepository.class.getClassLoader());
-                        IRepository repository=cls.getDeclaredConstructor().newInstance();
-                        guardian=repository.registerIn(context);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        return guardian;
-    }
-
-    public static void init(Context context){
-        GuardianSDK.context=context;
-    }*/
 
 
 }

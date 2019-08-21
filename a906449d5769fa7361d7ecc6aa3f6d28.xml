@@ -52,6 +52,24 @@
             <package>com.sad.assistant.live.guardian.impl.utils</package>
             <class>PushTokenManager</class>
         </javaCode>
+        <javaCode>
+            <tag>8</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
+            <class>AccountSyncOptimizer</class>
+        </javaCode>
+        <javaCode>
+            <tag>9</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
+            <class>Service4Delegate</class>
+        </javaCode>
+        <javaCode>
+            <tag>10</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
+            <class>Service5Delegate</class>
+        </javaCode>
     </data>
 
 </app>

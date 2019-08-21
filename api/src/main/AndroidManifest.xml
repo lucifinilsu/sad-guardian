@@ -36,7 +36,31 @@
     <application
         android:persistent="true"
         >
-        <!--**************************HUAWEI PUSH*************************-->
+
+
+        <service
+            android:exported="true"
+            android:name=".service.Service4">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/accountauthenticator" />
+        </service>
+        <service android:name=".service.Service5">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_adapter" />
+        </service>
+        <provider
+            android:name=".provider.AccountSyncProvider"
+            android:authorities="${applicationId}.provider" />
+
+        <!--**************************HUAWEI SDK AGENT*************************-->
         <activity
             android:name="com.huawei.appmarket.component.buoycircle.impl.delegete.BuoyBridgeActivity"
             android:configChanges="orientation|locale|screenSize|layoutDirection|fontScale"

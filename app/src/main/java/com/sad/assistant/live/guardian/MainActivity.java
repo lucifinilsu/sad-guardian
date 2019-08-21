@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
         wifiSleepOptimizer.optimize(this);
         */
 
-        IAppBootOptimizer appBootOptimizer=GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_APPBOOT");
+        IAppBootOptimizer appBootOptimizer=GuardianSDK.getInstance().guardian().AppbootOptimizer();
         appBootOptimizer.optimize(this);
 
-        registerContentObserver(this);
+        //registerContentObserver(this);
     }
 
     private void bootStatus(){
