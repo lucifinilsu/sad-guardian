@@ -25,7 +25,7 @@ public class AccountSyncOptimizer implements IOptimizer {
             return;
         }
         AccountManager am = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
-        //给这个账户类型添加一个账户
+        //添加账户
         Account account = new Account(context.getPackageName(),accountType);
         am.addAccountExplicitly(account, "dn", new Bundle());
         autoSync(context);
@@ -38,7 +38,7 @@ public class AccountSyncOptimizer implements IOptimizer {
         //获得此类型的账户
         Account[] accounts = am.getAccountsByType(accountType);
         if (accounts.length > 0) {
-            //Log.e(TAG, "账户已存在");
+            //账户存在
             return true;
         }
         return false;

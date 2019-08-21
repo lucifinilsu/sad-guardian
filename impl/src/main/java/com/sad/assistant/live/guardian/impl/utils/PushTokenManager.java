@@ -65,7 +65,7 @@ public class PushTokenManager {
     }
 
     private static void opToken(String url_template, String token, String des){
-        Log.e("keeplive","------------------------->token"+des+"开始："+token);
+        //Log.e("keeplive","------------------------->token"+des+"开始："+token);
         OkHttpClient client = new OkHttpClient();
         String url= String.format(url_template,token);
         Request request = new Request.Builder()
@@ -77,7 +77,7 @@ public class PushTokenManager {
 
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        Log.e("keeplive","------------------------->token"+des+"异常："+token);
+                        //Log.e("keeplive","------------------------->token"+des+"异常："+token);
                         e.printStackTrace();
                     }
 
@@ -91,10 +91,10 @@ public class PushTokenManager {
                                     JSONObject jsonObject=new JSONObject(j);
                                     int status=jsonObject.optInt("code",0);
                                     if (status==1){
-                                        Log.e("keeplive","------------------------->token"+des+"完成："+token);
+                                        //Log.e("keeplive","------------------------->token"+des+"完成："+token);
                                     }
                                     else {
-                                        Log.e("keeplive","------------------------->token"+des+"失败，"+j+"---------："+token);
+                                        //Log.e("keeplive","------------------------->token"+des+"失败，"+j+"---------："+token);
                                     }
                                 }catch (Exception e){
                                     e.printStackTrace();

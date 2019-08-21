@@ -6,7 +6,7 @@ import android.content.Context;
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
 import com.sad.assistant.live.guardian.api.init.IAppWork;
 import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
-
+@SuppressWarnings("unchecked")
 public class GuardianSDK {
 
     private static GuardianSDK sdk;

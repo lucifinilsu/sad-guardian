@@ -57,8 +57,8 @@ public class Service5Delegate implements IServiceDelegate {
         @Override
         public void onPerformSync(Account account, Bundle extras, String authority,
                                   ContentProviderClient provider, SyncResult syncResult) {
-            //Log.e(TAG,"同步账户");
-            //与互联网 或者 本地数据库同步账户
+
+            //与互联网或者本地数据库同步账户
         }
     }
 }
