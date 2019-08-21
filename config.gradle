@@ -48,7 +48,7 @@ ext {
             "hms-base"              : "com.huawei.android.hms:base:${dependVersion.hmsVersion}",
             "hms-iap"               : "com.huawei.android.hms:iap:${dependVersion.hmsVersion}",
             "hms-sns"               : "com.huawei.android.hms:sns:${dependVersion.hmsVersion}",
-            "hms-hwid"                : "com.huawei.android.hms:hwid:${dependVersion.hmsVersion}",
+            "hms-hwid"              : "com.huawei.android.hms:hwid:${dependVersion.hmsVersion}",
             "hms-push"              : "com.huawei.android.hms:push:${dependVersion.hmsVersion}",
             "hms-opendevice"        : "com.huawei.android.hms:opendevice:${dependVersion.hmsVersion}",
             "hms-game"              : "com.huawei.android.hms:game:${dependVersion.hmsVersion}"

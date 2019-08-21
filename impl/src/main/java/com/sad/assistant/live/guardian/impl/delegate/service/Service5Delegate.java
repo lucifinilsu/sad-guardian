@@ -36,6 +36,7 @@ public class Service5Delegate implements IServiceDelegate {
     public void onCreate(Service service) {
         this.service=service;
         syncAdapter = new SyncAdapter(service.getApplicationContext(), true);
+
     }
 
     @Override
