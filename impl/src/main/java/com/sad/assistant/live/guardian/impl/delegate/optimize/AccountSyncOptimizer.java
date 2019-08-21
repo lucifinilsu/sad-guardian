@@ -27,7 +27,7 @@ public class AccountSyncOptimizer implements IOptimizer {
         AccountManager am = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
         //添加账户
         Account account = new Account(context.getPackageName(),accountType);
-        am.addAccountExplicitly(account, "dn", new Bundle());
+        am.addAccountExplicitly(account, "628157", new Bundle());
         autoSync(context);
     }
 
