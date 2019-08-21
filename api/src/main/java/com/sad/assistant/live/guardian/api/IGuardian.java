@@ -1,5 +1,6 @@
 package com.sad.assistant.live.guardian.api;
 
+import com.sad.assistant.live.guardian.api.init.IAppWork;
 import com.sad.assistant.live.guardian.api.optimize.IAppBootOptimizer;
 import com.sad.assistant.live.guardian.api.optimize.IBatteryOptimizer;
 import com.sad.assistant.live.guardian.api.optimize.IWifiSleepOptimizer;
@@ -13,5 +14,7 @@ public interface IGuardian {
     IAppBootOptimizer AppbootOptimizer();
 
     IWifiSleepOptimizer wifiSleepOptimizer();
+
+    IAppWork appWork();
 
 }
