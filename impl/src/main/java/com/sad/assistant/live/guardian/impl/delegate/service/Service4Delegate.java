@@ -11,8 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 
+import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.service.IServiceDelegate;
-
+@GuardiaDelegate(name = "SERVICE_4")
 public class Service4Delegate implements IServiceDelegate {
 
     private Service service;
