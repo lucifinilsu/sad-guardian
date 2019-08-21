@@ -18,7 +18,7 @@ public class DelegateStudioImpl implements IDelegateStudio {
     public <D> D getDelegateInstance(String s) {
         Class<D> cls= (Class<D>) _DELEGAETE_IMPLS.get(s);
         try {
-            Constructor<D> constructor=cls.getConstructor();
+            Constructor<D> constructor=cls.getDeclaredConstructor();
             constructor.setAccessible(true);
             return constructor.newInstance();
         } catch (Exception e) {
