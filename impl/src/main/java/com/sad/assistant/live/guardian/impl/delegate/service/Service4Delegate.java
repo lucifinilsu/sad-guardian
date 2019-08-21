@@ -19,9 +19,13 @@ public class Service4Delegate implements IServiceDelegate {
     private Service service;
     private AccountAuthenticator accountAuthenticator;
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(Service service,Intent intent) {
         //return accountAuthenticator.getIBinder();
         //限制了只有在AccountManagerService绑定service时才返回Authenticator的binder
+        this.service=service;
+        if (accountAuthenticator==null){
+            accountAuthenticator = new AccountAuthenticator(service);
+        }
         if (AccountManager.ACTION_AUTHENTICATOR_INTENT.equals(intent.getAction())) {
             return accountAuthenticator.getIBinder();
         } else {

@@ -14,7 +14,7 @@ public class Service4 extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return serviceDelegate.onBind(intent);
+        return serviceDelegate.onBind(this,intent);
     }
 
     @Override

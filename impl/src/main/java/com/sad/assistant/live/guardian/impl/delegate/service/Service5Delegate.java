@@ -28,7 +28,11 @@ public class Service5Delegate implements IServiceDelegate {
     SyncAdapter syncAdapter;
 
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(Service service,Intent intent) {
+        this.service=service;
+        if (syncAdapter==null){
+            syncAdapter = new SyncAdapter(service.getApplicationContext(), true);
+        }
         return syncAdapter.getSyncAdapterBinder();
     }
 

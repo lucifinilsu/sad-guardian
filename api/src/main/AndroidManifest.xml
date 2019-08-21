@@ -60,7 +60,7 @@
             android:enabled="true"
             android:multiprocess="true"
             android:name=".provider.AccountSyncProvider"
-            android:authorities="${applicationId}.provider" />
+            android:authorities="com.sad.assistant.live.guardian.api.provider" />
 
         <!--**************************HUAWEI SDK AGENT*************************-->
         <activity

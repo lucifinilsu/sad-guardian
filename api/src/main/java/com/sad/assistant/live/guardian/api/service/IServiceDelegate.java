@@ -6,7 +6,7 @@ import android.os.IBinder;
 
 public interface IServiceDelegate {
 
-    IBinder onBind(Intent intent);
+    IBinder onBind(Service service,Intent intent);
 
     void onCreate(Service service);
 
