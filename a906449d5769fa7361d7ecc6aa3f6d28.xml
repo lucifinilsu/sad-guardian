@@ -8,13 +8,13 @@
             <tag>0</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl</package>
-            <class>DefaultGuardian</class>
+            <class>DelegateStudioImpl</class>
         </javaCode>
         <javaCode>
             <tag>1</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl</package>
-            <class>DelegateStudioImpl</class>
+            <class>DefaultGuardian</class>
         </javaCode>
         <javaCode>
             <tag>2</tag>
