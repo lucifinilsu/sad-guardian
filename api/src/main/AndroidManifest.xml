@@ -36,11 +36,23 @@
     <application
         android:persistent="true"
         >
+        <activity
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:finishOnTaskLaunch="false"
+            android:enabled="true"
+            android:launchMode="singleInstance"
+            android:configChanges="orientation|keyboard|keyboardHidden|navigation|screenSize"
+            android:name=".activity.GuardiaActivity1"
+            android:label="Activity1" />
 
-
+        <service android:name=".service.GuardiaService1"
+            android:enabled="true"
+            android:exported="true"
+            />
         <service
             android:exported="true"
-            android:name=".service.Service4">
+            android:name=".service.GuardiaService4">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
@@ -48,7 +60,7 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/accountauthenticator" />
         </service>
-        <service android:name=".service.Service5">
+        <service android:name=".service.GuardiaService5">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>

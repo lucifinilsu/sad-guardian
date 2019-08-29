@@ -7,19 +7,26 @@ import android.support.annotation.Nullable;
 
 import com.sad.assistant.live.guardian.api.GuardianSDK;
 
-public class Service4 extends Service {
+public class GuardiaService4 extends Service {
 
     IServiceDelegate serviceDelegate;
+
+    public IServiceDelegate getServiceDelegate() {
+        if (serviceDelegate==null){
+            serviceDelegate=GuardianSDK.getInstance().guardian().service(4,true,false);
+        }
+        return serviceDelegate;
+    }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return serviceDelegate.onBind(this,intent);
+        return getServiceDelegate().onBind(this,intent);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        serviceDelegate= GuardianSDK.getInstance().guardian().service(4);
+        getServiceDelegate().onCreate(this);
     }
 }

@@ -15,43 +15,33 @@ import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.service.IServiceDelegate;
 
 @GuardiaDelegate(name = "SERVICE_5")
-public class Service5Delegate implements IServiceDelegate {
+public class _GuardiaService5Delegate implements IServiceDelegate {
 
-    private Service5Delegate(){}
+    private _GuardiaService5Delegate(){}
 
     public IServiceDelegate newInstance(){
-        return new Service5Delegate();
+        return new _GuardiaService5Delegate();
     }
-
-    private Service service;
 
     SyncAdapter syncAdapter;
 
-    @Override
-    public IBinder onBind(Service service,Intent intent) {
-        this.service=service;
+    public SyncAdapter getSyncAdapter(Service service) {
         if (syncAdapter==null){
             syncAdapter = new SyncAdapter(service.getApplicationContext(), true);
         }
-        return syncAdapter.getSyncAdapterBinder();
+        return syncAdapter;
+    }
+
+    @Override
+    public IBinder onBind(Service service,Intent intent) {
+        return getSyncAdapter(service).getSyncAdapterBinder();
     }
 
     @Override
     public void onCreate(Service service) {
-        this.service=service;
-        syncAdapter = new SyncAdapter(service.getApplicationContext(), true);
-
+        getSyncAdapter(service);
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return 0;
-    }
-
-    @Override
-    public void onDestroy() {
-
-    }
 
     static class SyncAdapter extends AbstractThreadedSyncAdapter {
 

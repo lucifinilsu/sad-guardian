@@ -29,6 +29,8 @@ configurations.all {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    api rootProject.ext.dependencies["lifecycle-common-java8"]
+
     api project(rootProject.ext.dependencies["self-annotation"])
 
     api rootProject.ext.dependencies["sad-datastore"]
@@ -42,6 +44,7 @@ dependencies {
     api rootProject.ext.dependencies["hms-push"]
     api rootProject.ext.dependencies["hms-opendevice"]
     api rootProject.ext.dependencies["hms-game"]
+
 
     testImplementation 'junit:junit:latest.release'
     androidTestImplementation 'com.android.support.test:runner:latest.release'

@@ -14,20 +14,26 @@ import android.os.IBinder;
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.service.IServiceDelegate;
 @GuardiaDelegate(name = "SERVICE_4")
-public class Service4Delegate implements IServiceDelegate {
+public class _GuardiaService4Delegate implements IServiceDelegate {
 
     private Service service;
     private AccountAuthenticator accountAuthenticator;
+
+    public AccountAuthenticator getAccountAuthenticator(Service service) {
+        if (accountAuthenticator==null){
+            accountAuthenticator = new AccountAuthenticator(service);
+        }
+        return accountAuthenticator;
+    }
+
     @Override
     public IBinder onBind(Service service,Intent intent) {
         //return accountAuthenticator.getIBinder();
         //限制了只有在AccountManagerService绑定service时才返回Authenticator的binder
-        this.service=service;
-        if (accountAuthenticator==null){
-            accountAuthenticator = new AccountAuthenticator(service);
-        }
+
+
         if (AccountManager.ACTION_AUTHENTICATOR_INTENT.equals(intent.getAction())) {
-            return accountAuthenticator.getIBinder();
+            return getAccountAuthenticator(service).getIBinder();
         } else {
             return null;
         }
@@ -35,19 +41,10 @@ public class Service4Delegate implements IServiceDelegate {
 
     @Override
     public void onCreate(Service service) {
-        this.service=service;
-        accountAuthenticator = new AccountAuthenticator(service);
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return 0;
-    }
-
-    @Override
-    public void onDestroy() {
+        getAccountAuthenticator(service);
 
     }
+
 
     static class AccountAuthenticator extends AbstractAccountAuthenticator {
 

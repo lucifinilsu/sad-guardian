@@ -1,12 +1,21 @@
 package com.sad.assistant.live.guardian.api;
 
-public interface IDelegateStudio {
+import java.util.Set;
 
-    <D> D getDelegateInstance(String s);
+public interface IDelegateStudio extends InstanceProvider<String,Object>{
+
+    <D> Class<D> get(String s);
 
     IDelegateStudio put(String s,Class o);
 
     int size();
+
+    Set<String> indexes();
+
+    IAndroidComponentDelegateProvider androidComponentDelegateProvider();
+
+    IOptimizerProvider optimizerProvider();
+
 
 
 }

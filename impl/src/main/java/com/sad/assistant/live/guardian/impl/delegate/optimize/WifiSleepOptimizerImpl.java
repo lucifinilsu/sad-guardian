@@ -5,14 +5,21 @@ import android.content.Intent;
 import android.provider.Settings;
 
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
-import com.sad.assistant.live.guardian.api.optimize.IWifiSleepOptimizer;
+import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
+
 @GuardiaDelegate(name = "OPTIMIZE_WIFISLEEP")
-public class WifiSleepOptimizerImpl implements IWifiSleepOptimizer {
+public class WifiSleepOptimizerImpl implements IOptimizer {
+
+
+    @Override
+    public boolean isOptimized(Context context){
+        int p = getWifiSleepPolicy(context);
+        return p==2;
+    }
 
     protected WifiSleepOptimizerImpl(){}
 
-    @Override
-    public int getWifiSleepPolicy(Context context) {
+    private int getWifiSleepPolicy(Context context) {
         try {
             return Settings.Global.getInt(context.getContentResolver(), Settings.Global.WIFI_SLEEP_POLICY);//Settings.Global.putInt(context.getContentResolver(), "wifi_sleep_policy", 2);
         } catch (Settings.SettingNotFoundException e) {

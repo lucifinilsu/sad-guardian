@@ -4,8 +4,10 @@ import android.app.Application;
 
 public interface IAppWork {
 
-    Application.ActivityLifecycleCallbacks activityLifecycleCallbacks(IBackgroundSwitchListener switchListener);
+    //Application.ActivityLifecycleCallbacks activityLifecycleCallbacks(IBackgroundSwitchListener switchListener);
 
-    boolean isBackground();
+    boolean isApplicationBackground();
+
+    void initApplication(Application application);
 
 }

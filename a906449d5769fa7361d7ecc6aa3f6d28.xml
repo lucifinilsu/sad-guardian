@@ -37,20 +37,20 @@
         <javaCode>
             <tag>5</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
-            <package>com.sad.assistant.live.guardian.impl.delegate.init</package>
-            <class>ActivityLifecycleCallback</class>
+            <package>com.sad.assistant.live.guardian.impl.utils</package>
+            <class>PushTokenManager</class>
         </javaCode>
         <javaCode>
             <tag>6</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.init</package>
-            <class>AppWorkImpl</class>
+            <class>ActivityLifecycleCallback</class>
         </javaCode>
         <javaCode>
             <tag>7</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
-            <package>com.sad.assistant.live.guardian.impl.utils</package>
-            <class>PushTokenManager</class>
+            <package>com.sad.assistant.live.guardian.impl.delegate.init</package>
+            <class>AppWorkImpl</class>
         </javaCode>
         <javaCode>
             <tag>8</tag>

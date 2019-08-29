@@ -1,6 +1,5 @@
 package com.sad.assistant.live.guardian;
 
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -9,11 +8,6 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import com.sad.assistant.live.guardian.api.GuardianSDK;
-import com.sad.assistant.live.guardian.api.optimize.IAppBootOptimizer;
-import com.sad.assistant.live.guardian.api.optimize.IBatteryOptimizer;
-import com.sad.assistant.live.guardian.api.optimize.IWifiSleepOptimizer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         wifiSleepOptimizer.optimize(this);
         */
 
-        /*IAppBootOptimizer appBootOptimizer=GuardianSDK.getInstance().guardian().AppbootOptimizer();
+        /*IAppBootOptimizer appBootOptimizer=GuardianSDK.getInstance().guardian().appBootOptimizer();
         appBootOptimizer.optimize(this);*/
 
         //registerContentObserver(this);

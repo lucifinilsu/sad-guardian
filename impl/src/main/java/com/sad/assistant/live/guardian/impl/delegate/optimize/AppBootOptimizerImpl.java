@@ -6,9 +6,10 @@ import android.content.Intent;
 import android.provider.Settings;
 
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
-import com.sad.assistant.live.guardian.api.optimize.IAppBootOptimizer;
+import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
+
 @GuardiaDelegate(name = "OPTIMIZE_APPBOOT")
-public class AppBootOptimizerImpl implements IAppBootOptimizer {
+public class AppBootOptimizerImpl implements IOptimizer {
 
     protected AppBootOptimizerImpl(){}
 
@@ -19,6 +20,11 @@ public class AppBootOptimizerImpl implements IAppBootOptimizer {
         }catch (Exception e){
             context.startActivity(new Intent(Settings.ACTION_SETTINGS));
         }
+    }
+
+    @Override
+    public boolean isOptimized(Context context) {
+        return false;
     }
 
     private static Intent getSettingIntent(){

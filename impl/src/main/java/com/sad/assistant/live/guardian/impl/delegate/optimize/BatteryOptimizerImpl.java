@@ -9,9 +9,10 @@ import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
-import com.sad.assistant.live.guardian.api.optimize.IBatteryOptimizer;
+import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
+
 @GuardiaDelegate(name = "OPTIMIZE_BATTERY")
-public class BatteryOptimizerImpl implements IBatteryOptimizer {
+public class BatteryOptimizerImpl implements IOptimizer {
 
     protected BatteryOptimizerImpl(){}
 

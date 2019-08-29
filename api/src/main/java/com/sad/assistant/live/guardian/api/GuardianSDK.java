@@ -8,6 +8,7 @@ import com.sad.assistant.live.guardian.api.init.IAppWork;
 import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
 
 import java.lang.reflect.Constructor;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("unchecked")
 public class GuardianSDK {
@@ -15,13 +16,24 @@ public class GuardianSDK {
     private static GuardianSDK sdk;
 
     private IGuardian guardian;
+    private long heartBeat=12;
+    private TimeUnit heartBeatTimeUnit=TimeUnit.SECONDS;
+    private Application application;
+
+    public long getHeartBeat() {
+        return heartBeat;
+    }
+
+    public TimeUnit getHeartBeatTimeUnit() {
+        return heartBeatTimeUnit;
+    }
 
     public IGuardian guardian() {
         return guardian;
     }
 
-    private GuardianSDK(){
-
+    private GuardianSDK(Application application){
+        this.application=application;
     }
 
     public static GuardianSDK getInstance(){
@@ -41,7 +53,9 @@ public class GuardianSDK {
                             Constructor<IRepository> constructor=cls.getDeclaredConstructor();
                             constructor.setAccessible(true);
                             IRepository repository=constructor.newInstance();
-                            sdk=new GuardianSDK();
+                            sdk=new GuardianSDK(application);
+                            sdk.heartBeat=appLiveGuardian.heartbeat();
+                            sdk.heartBeatTimeUnit=appLiveGuardian.timeunit();
                             sdk.guardian=repository.registerIn(application);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -51,14 +65,19 @@ public class GuardianSDK {
             }
 
             if (sdk!=null){
-                IAppWork appWork=sdk.guardian.appWork();
-                application.registerActivityLifecycleCallbacks(appWork.activityLifecycleCallbacks(null));
-                IOptimizer accountSyncOptimizer=sdk.guardian.accountSyncOptimizer();
-                accountSyncOptimizer.optimize(application);
+                IAppWork appWork=sdk.guardian
+                        .delegateStudio()
+                        .optimizerProvider()
+                        .appWork(false,true);
+                if (appWork!=null){
+                    appWork.initApplication(application);
+                }
             }
         }
-
     }
 
+    public void start(){
+
+    }
 
 }

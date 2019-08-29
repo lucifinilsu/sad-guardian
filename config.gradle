@@ -27,6 +27,8 @@ ext {
             "appcompat-x"           : "androidx.appcompat:appcompat:${dependVersion.support}",
             "constraintlayout-x"    : "androidx.constraintlayout:constraintlayout:${dependVersion.support}",
 
+            "lifecycle-common-java8": "android.arch.lifecycle:common-java8:latest.release",
+
             "sad-architecture-api"  : "com.sad.architecture.api:sad-architecture-api:latest.release",
             "sad-datastore"         : "com.sad.assistant:sad-datastore:latest.release",
             "self-api"              : ":api",

@@ -6,11 +6,13 @@ import android.os.IBinder;
 
 public interface IServiceDelegate {
 
-    IBinder onBind(Service service,Intent intent);
+    default IBinder onBind(Service service,Intent intent){return null;}
 
     void onCreate(Service service);
 
-    int onStartCommand(Intent intent, int flags, int startId);
+    default int onStartCommand(Service service,Intent intent, int flags, int startId){
+        return Service.START_REDELIVER_INTENT;
+    };
 
-    void onDestroy();
+    default void onDestroy(Service service){}
 }
