@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-public class GuardiaService1 extends Service {
-    @Nullable
+import com.sad.assistant.live.guardian.api.GuardianSDK;
+
+public class GuardiaService1 extends AbsBaseGuardiaService {
+
+
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    int serviceId() {
+        return 1;
     }
 }

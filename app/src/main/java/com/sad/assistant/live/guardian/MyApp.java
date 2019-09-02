@@ -13,5 +13,6 @@ public class MyApp extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         GuardianSDK.init(this);
+        GuardianSDK.getInstance().start(null);
     }
 }

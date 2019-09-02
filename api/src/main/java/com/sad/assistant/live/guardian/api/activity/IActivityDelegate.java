@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.sad.assistant.live.guardian.api.IDelegate;
 
-public interface IActivityDelegate{
+
+public interface IActivityDelegate extends IDelegate {
     
     default void onActivityPreCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
        

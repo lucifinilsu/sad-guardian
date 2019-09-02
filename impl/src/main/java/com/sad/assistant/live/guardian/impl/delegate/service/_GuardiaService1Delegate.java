@@ -10,15 +10,20 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.os.RemoteException;
 import android.util.Log;
 
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.AppConstant;
 import com.sad.assistant.live.guardian.api.GuardianSDK;
+import com.sad.assistant.live.guardian.api.IGuardiaTaskStudio;
+import com.sad.assistant.live.guardian.api.InstanceProvider;
+import com.sad.assistant.live.guardian.api.parameters.ActionSource;
+import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskParameters;
+import com.sad.assistant.live.guardian.api.parameters.ICommunicant;
+import com.sad.assistant.live.guardian.api.parameters.IGuardiaFuture;
+import com.sad.assistant.live.guardian.api.parameters.IGuardiaTask;
 import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
-import com.sad.assistant.live.guardian.api.parameters.ServiceAidlParameters;
 import com.sad.assistant.live.guardian.api.service.GuardiaService2;
 import com.sad.assistant.live.guardian.api.service.IService2AidlInterface;
 import com.sad.assistant.live.guardian.api.service.IServiceDelegate;
@@ -34,11 +39,21 @@ import static android.app.Service.START_REDELIVER_INTENT;
 @GuardiaDelegate(name = "SERVICE_1")
 public class _GuardiaService1Delegate implements IServiceDelegate {
 
+    private ICommunicant communicant=new ICommunicant() {
+        @Override
+        public void postFuture(IGuardiaFuture future) {
+            INotificationStyle style=future.notificationStyle();
+            if (style!=null){
+                updateNotification(style);
+            }
+        }
+    };
+
     private final class ServiceBinder extends IService2AidlInterface.Stub {
 
         @Override
-        public void action(ServiceAidlParameters parameters) throws RemoteException {
-
+        public void action(GuardiaTaskParameters parameters) throws RemoteException {
+            doWork(parameters,ActionSource.REMOTE_WAKE);
         }
     }
 
@@ -69,7 +84,7 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
     public int onStartCommand(Service service, Intent intent, int flags, int startId) {
         try {
             bundle=intent.getExtras();
-            ServiceAidlParameters parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
+            GuardiaTaskParameters parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
             if (parameters!=null && parameters.getNotificationStyle()!=null && mediaPlayer!=null){
                 updateNotification(parameters.getNotificationStyle());
                 return START_REDELIVER_INTENT;
@@ -94,6 +109,9 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            //startwork
+            doWork(parameters,ActionSource.LOCAL_WAKE);
+
 
 
         }catch (Exception e){
@@ -150,7 +168,7 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
         public void onServiceConnected(ComponentName name, IBinder service) {
             try {
                 if (bundle!=null){
-                    ServiceAidlParameters parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
+                    GuardiaTaskParameters parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
                     if (parameters!=null){
                         IService2AidlInterface aidlInterface=IService2AidlInterface.Stub.asInterface(service);
                         aidlInterface.action(parameters);
@@ -165,5 +183,49 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
     @Override
     public void onDestroy(Service service) {
         service.unbindService(connection);
+    }
+
+    private void doWork(GuardiaTaskParameters parameters,ActionSource defaultSource){
+        if (parameters!=null){
+            int singleTarget=parameters.getSingleTarget();
+            ActionSource source = parameters.getSource();
+            if (singleTarget!= GuardiaTaskParameters.NO_SINGLETARGET){
+                IGuardiaTask task=GuardianSDK.getInstance()
+                        .guardian()
+                        .guardiaStudio()
+                        .obtain(singleTarget,true,false);
+                if (task!=null){
+                    task.onWork(service.getApplicationContext(),source,communicant);
+                }
+            }
+            else{
+                GuardianSDK.getInstance()
+                        .guardian()
+                        .guardiaStudio()
+                        .traverse(new IGuardiaTaskStudio.ITraversedCallback() {
+                            @Override
+                            public void OnTraversed(int tag, Class<? extends IGuardiaTask> cls, InstanceProvider<Integer, IGuardiaTask> instanceProvider) {
+                                IGuardiaTask task=instanceProvider.obtain(tag,true,false);
+                                if (task!=null){
+                                    task.onWork(service.getApplicationContext(),source,communicant);
+                                }
+                            }
+                        });
+            }
+        }
+        else {
+            GuardianSDK.getInstance()
+                    .guardian()
+                    .guardiaStudio()
+                    .traverse(new IGuardiaTaskStudio.ITraversedCallback() {
+                        @Override
+                        public void OnTraversed(int tag, Class<? extends IGuardiaTask> cls, InstanceProvider<Integer, IGuardiaTask> instanceProvider) {
+                            IGuardiaTask task=instanceProvider.obtain(tag,true,false);
+                            if (task!=null){
+                                task.onWork(service.getApplicationContext(),defaultSource,communicant);
+                            }
+                        }
+                    });
+        }
     }
 }

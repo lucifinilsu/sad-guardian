@@ -6,6 +6,7 @@ import com.sad.assistant.live.guardian.api.parameters.IGuardiaTask;
 import org.apache.commons.lang3.concurrent.ConcurrentUtils;
 
 import java.lang.reflect.Constructor;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableSet;
@@ -16,10 +17,12 @@ import java.util.concurrent.ConcurrentSkipListMap;
 
 @SuppressWarnings("unchecked")
 public class GuardiaTaskStudioImpl implements IGuardiaTaskStudio {
-    private final static ConcurrentSkipListMap<Integer,Class<? extends IGuardiaTask>> _GUARDIA_TASKS=new ConcurrentSkipListMap<>();
-    private final static ConcurrentSkipListMap<Integer,IGuardiaTask> _GUARDIA_TASKS_INSTANCE=new ConcurrentSkipListMap<>();
+    private final static ConcurrentSkipListMap<Integer,Class<? extends IGuardiaTask>> _GUARDIA_TASKS=new ConcurrentSkipListMap<>(Collections.reverseOrder());
+    private final static ConcurrentSkipListMap<Integer,IGuardiaTask> _GUARDIA_TASKS_INSTANCE=new ConcurrentSkipListMap<>(Collections.reverseOrder());
 
-    protected GuardiaTaskStudioImpl(){}
+    protected GuardiaTaskStudioImpl(){
+
+    }
 
     protected static IGuardiaTaskStudio newInstance(){
         return new GuardiaTaskStudioImpl();
@@ -44,6 +47,38 @@ public class GuardiaTaskStudioImpl implements IGuardiaTaskStudio {
     @Override
     public int size() {
         return _GUARDIA_TASKS.size();
+    }
+
+    @Override
+    public void remove(int tag) {
+        _GUARDIA_TASKS.remove(tag);
+    }
+
+    @Override
+    public void removeInstance(int tag) {
+        _GUARDIA_TASKS_INSTANCE.remove(tag);
+    }
+
+    @Override
+    public void clear() {
+        _GUARDIA_TASKS.clear();
+    }
+
+    @Override
+    public void clearInstances() {
+        _GUARDIA_TASKS_INSTANCE.clear();
+    }
+
+    @Override
+    public void traverse(ITraversedCallback traversedCallback) {
+        while (_GUARDIA_TASKS.entrySet().iterator().hasNext()){
+            Map.Entry<Integer,Class<? extends IGuardiaTask>> entry=_GUARDIA_TASKS.entrySet().iterator().next();
+            int key=entry.getKey();
+            Class<? extends IGuardiaTask> cls=entry.getValue();
+            if (traversedCallback!=null){
+                traversedCallback.OnTraversed(key,cls,this);
+            }
+        }
     }
 
     private <D extends IGuardiaTask> D getTaskInstance(Integer s,Class<?>[] parametersType,Object... parameters) {

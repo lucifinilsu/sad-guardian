@@ -24,4 +24,30 @@ public class ProcessorLog {
         messager.printMessage(Diagnostic.Kind.NOTE, info);
     }
 
+    public boolean config_err(String mainPkgName,String moduleName,String gurdianId){
+        if (mainPkgName==null || "".equals(moduleName) || gurdianId==null || "".equals(gurdianId)){
+            error("未在Gradle脚本里配置AppPackageName或AppGurdianId,请按照以下格式配置app主包名和AppGurdianId：\n" +
+                    "android{\n" +
+                    "   ...\n"+
+                    "   defaultConfig{\n" +
+                    "       ...\n"+
+                    "       javaCompileOptions {\n" +
+                    "            annotationProcessorOptions {\n" +
+                    "                arguments = [\n" +
+                    "                        AppPackageName:xxx.xxx.xxx,\n" +
+                    "                        ModuleName:yyy,\n" +
+                    "                        AppGurdianId:'zzzzzzz'\n" +
+                    "                ]\n" +
+                    "            }\n" +
+                    "        }\n" +
+                    "       ...\n"+
+                    "   }\n" +
+                    "   ...\n"+
+                    "}\n"
+            );
+            return true;
+        }
+        return false;
+    }
+
 }

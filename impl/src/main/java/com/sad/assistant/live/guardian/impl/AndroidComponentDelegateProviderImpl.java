@@ -9,13 +9,13 @@ import com.sad.assistant.live.guardian.api.broadcastreceiver.IBroadcastReceiverD
 import com.sad.assistant.live.guardian.api.service.IServiceDelegate;
 
 public class AndroidComponentDelegateProviderImpl implements IAndroidComponentDelegateProvider {
-    private InstanceProvider<String> instanceProvider;
+    private InstanceProvider<String, Object> instanceProvider;
     
-    protected <P extends InstanceProvider<String>> AndroidComponentDelegateProviderImpl(@NonNull P instanceProvider){
+    protected <P extends InstanceProvider<String, Object>> AndroidComponentDelegateProviderImpl(@NonNull P instanceProvider){
         this.instanceProvider=instanceProvider;
     }
     
-    protected static <P extends InstanceProvider<String>> IAndroidComponentDelegateProvider newInstance(@NonNull P instanceProvider){
+    protected static <P extends InstanceProvider<String, Object>> IAndroidComponentDelegateProvider newInstance(@NonNull P instanceProvider){
         return new AndroidComponentDelegateProviderImpl(instanceProvider);
     }
 

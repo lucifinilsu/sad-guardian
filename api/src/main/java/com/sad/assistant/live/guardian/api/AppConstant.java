@@ -12,6 +12,8 @@ public class AppConstant {
 
     public final static String INTENT_KEY_APP_ISBACKGROUND="INTENT_KEY_APP_ISBACKGROUND";
 
+    public final static String INTENT_KEY_GUARDIATASKID="INTENT_KEY_GUARDIATASKID";
+
     public final static String BR_ACTION_ACTIVITY1_HIBERNATE="BR_ACTION_ACTIVITY1_HIBERNATE";
 
     public final static String BR_ACTION_SCREEN_OFF="BR_ACTION_SCREEN_OFF";

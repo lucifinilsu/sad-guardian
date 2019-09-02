@@ -7,12 +7,12 @@ import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
 
 public class OptimizerProviderImpl implements IOptimizerProvider {
 
-    private InstanceProvider<String> instanceProvider;
+    private InstanceProvider<String,Object> instanceProvider;
 
-    protected <P extends InstanceProvider<String>> OptimizerProviderImpl(P instanceProvider){
+    protected <P extends InstanceProvider<String,Object>> OptimizerProviderImpl(P instanceProvider){
         this.instanceProvider=instanceProvider;
     }
-    public static <P extends InstanceProvider<String>> IOptimizerProvider newInstance(P instanceProvider){
+    public static <P extends InstanceProvider<String,Object>> IOptimizerProvider newInstance(P instanceProvider){
         return new OptimizerProviderImpl(instanceProvider);
     }
 

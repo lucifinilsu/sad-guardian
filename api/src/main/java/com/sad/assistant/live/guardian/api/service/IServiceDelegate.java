@@ -4,7 +4,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-public interface IServiceDelegate {
+import com.sad.assistant.live.guardian.api.IDelegate;
+
+public interface IServiceDelegate extends IDelegate {
 
     default IBinder onBind(Service service,Intent intent){return null;}
 

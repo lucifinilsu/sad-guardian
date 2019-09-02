@@ -13,35 +13,39 @@ public class GuardiaService0 extends JobService {
 
     IJobServiceDelegate jobServiceDelegate;
 
-    private void initDelegate(){
+    private IJobServiceDelegate getDelegate(){
         if (jobServiceDelegate==null){
-            jobServiceDelegate= GuardianSDK.getInstance().guardian().service(0,true,false);
+            jobServiceDelegate= GuardianSDK.getInstance()
+                                    .guardian()
+                                    .delegateStudio()
+                                    .androidComponentDelegateProvider()
+                                    .service(0)
+                                    ;
         }
+        return jobServiceDelegate;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        initDelegate();
-        jobServiceDelegate.onCreate(this);
+        getDelegate().onCreate(this);
     }
+
+
 
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        initDelegate();
-        return jobServiceDelegate.onStartJob(this,jobParameters);
+        return getDelegate().onStartJob(this,jobParameters);
     }
 
     @Override
     public boolean onStopJob(JobParameters jobParameters) {
-        initDelegate();
-        return jobServiceDelegate.onStopJob(this,jobParameters);
+        return getDelegate().onStopJob(this,jobParameters);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        initDelegate();
-        return jobServiceDelegate.onStartCommand(this,intent,flags,startId);
+        return getDelegate().onStartCommand(this,intent,flags,startId);
     }
 }

@@ -14,4 +14,17 @@ public interface IGuardiaTaskStudio extends InstanceProvider<Integer,IGuardiaTas
 
     int size();
 
+    void remove(int tag);
+
+    void removeInstance(int tag);
+
+    void clear();
+
+    void clearInstances();
+
+    void traverse(ITraversedCallback traversedCallback);
+
+    interface ITraversedCallback{
+        void OnTraversed(int tag, Class<? extends IGuardiaTask> cls,InstanceProvider<Integer,IGuardiaTask> instanceProvider);
+    }
 }

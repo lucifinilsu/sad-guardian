@@ -7,6 +7,7 @@ import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
 public class GuardiaFutureImpl implements IGuardiaFuture,IGuardiaFuture.Creator {
 
     private INotificationStyle notificationStyle;
+    private Object data;
 
     protected GuardiaFutureImpl(){}
 
@@ -20,6 +21,11 @@ public class GuardiaFutureImpl implements IGuardiaFuture,IGuardiaFuture.Creator 
     }
 
     @Override
+    public <D> D get() {
+        return (D) data;
+    }
+
+    @Override
     public Creator creator() {
         return this;
     }
@@ -27,6 +33,12 @@ public class GuardiaFutureImpl implements IGuardiaFuture,IGuardiaFuture.Creator 
     @Override
     public Creator notificationStyle(INotificationStyle notificationStyle) {
         this.notificationStyle=notificationStyle;
+        return this;
+    }
+
+    @Override
+    public Creator set(Object o) {
+        this.data=o;
         return this;
     }
 

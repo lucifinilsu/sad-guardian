@@ -77,12 +77,12 @@ public class DelegateStudioImpl implements IDelegateStudio {
 
     @Override
     public <O> O obtain(String k, boolean isNew, boolean update) {
-        Object instance = null;
+        O instance = null;
         if (isNew){
             instance=getDelegateInstance(k);
         }
         else {
-            instance=_DELEGAETE_IMPLS_INSTANCE.get(k);
+            instance= (O) _DELEGAETE_IMPLS_INSTANCE.get(k);
             if (instance==null){
                 instance=getDelegateInstance(k);
             }
@@ -91,7 +91,7 @@ public class DelegateStudioImpl implements IDelegateStudio {
             _DELEGAETE_IMPLS_INSTANCE.put(k,instance);
         }
         if (instance!=null){
-            return (O) instance;
+            return  instance;
         }
         return null;
     }

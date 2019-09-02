@@ -2,10 +2,12 @@ package com.sad.assistant.live.guardian.api;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
 import com.sad.assistant.live.guardian.api.init.IAppWork;
 import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
+import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskParameters;
 
 import java.lang.reflect.Constructor;
 import java.util.concurrent.TimeUnit;
@@ -76,8 +78,18 @@ public class GuardianSDK {
         }
     }
 
-    public void start(){
+    public void start(GuardiaTaskParameters parameters){
+        if (guardian!=null){
+            if(parameters!=null){
+                Bundle bundle=new Bundle();
+                bundle.putParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS,parameters);
+                guardian.start(bundle);
+            }
+            else {
+                guardian.start(null);
+            }
 
+        }
     }
 
 }

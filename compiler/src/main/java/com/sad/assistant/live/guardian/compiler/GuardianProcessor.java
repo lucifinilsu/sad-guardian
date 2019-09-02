@@ -40,7 +40,7 @@ import javax.lang.model.util.Types;
 
 @AutoService(Processor.class)
 @SupportedSourceVersion(value = SourceVersion.RELEASE_8)
-@SupportedOptions({"AppPackageName","AppGurdianId"})
+@SupportedOptions({"AppPackageName","ModuleName","AppGurdianId"})
 @SupportedAnnotationTypes({
         "com.sad.assistant.live.guardian.annotation.AppLiveGuardian"
 })
@@ -54,6 +54,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
     protected boolean isLog=false;
     protected String mainPkgName =null;
     protected String gurdianId=null;
+    protected String moduleName=null;
 
     @Override
     public synchronized void init(ProcessingEnvironment env) {
@@ -66,6 +67,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
         log=new ProcessorLog(messager);
         mainPkgName =env.getOptions().get("AppPackageName");
         gurdianId=env.getOptions().get("AppGurdianId");
+        moduleName=env.getOptions().get("ModuleName");
     }
 
     @Override
@@ -81,25 +83,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                 log.error("请保留唯一一个AppLiveGuardian注解对象");
                 return true;
             }
-            if (mainPkgName==null || "".equals(mainPkgName) || gurdianId==null || "".equals(gurdianId)){
-                log.error("未在Gradle脚本里配置AppPackageName或AppGurdianId,请按照以下格式配置app主包名和AppGurdianId：\n" +
-                        "android{\n" +
-                        "   ...\n"+
-                        "   defaultConfig{\n" +
-                        "       ...\n"+
-                        "       javaCompileOptions {\n" +
-                        "            annotationProcessorOptions {\n" +
-                        "                arguments = [\n" +
-                        "                        AppPackageName:xxx.xxx.xxx,\n" +
-                        "                        AppGurdianId:'xxxxxxxxx'\n" +
-                        "                ]\n" +
-                        "            }\n" +
-                        "        }\n" +
-                        "       ...\n"+
-                        "   }\n" +
-                        "   ...\n"+
-                        "}\n"
-                );
+            if (log.config_err(mainPkgName,moduleName,gurdianId)){
                 return true;
             }
             Element elementK=list.get(0);

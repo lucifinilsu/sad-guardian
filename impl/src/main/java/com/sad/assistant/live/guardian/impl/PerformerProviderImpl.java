@@ -9,13 +9,13 @@ import com.sad.assistant.live.guardian.api.parameters.IGuardiaFuture;
 
 public class PerformerProviderImpl implements IPerformerProvider {
 
-    private InstanceProvider<String> instanceProvider;
+    private InstanceProvider<String,Object> instanceProvider;
 
-    protected <P extends InstanceProvider<String>> PerformerProviderImpl(@NonNull P instanceProvider){
+    protected <P extends InstanceProvider<String,Object>> PerformerProviderImpl(@NonNull P instanceProvider){
         this.instanceProvider=instanceProvider;
     }
 
-    protected static <P extends InstanceProvider<String>> IPerformerProvider newInstance(@NonNull P instanceProvider){
+    protected static <P extends InstanceProvider<String,Object>> IPerformerProvider newInstance(@NonNull P instanceProvider){
         return new PerformerProviderImpl(instanceProvider);
     }
     

@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-public interface IBroadcastReceiverDelegate {
+import com.sad.assistant.live.guardian.api.IDelegate;
+
+public interface IBroadcastReceiverDelegate extends IDelegate {
 
     void onReceive(BroadcastReceiver broadcastReceiver, Context context, Intent intent);
 

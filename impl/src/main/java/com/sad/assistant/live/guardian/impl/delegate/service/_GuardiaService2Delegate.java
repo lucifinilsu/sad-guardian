@@ -1,6 +1,5 @@
 package com.sad.assistant.live.guardian.impl.delegate.service;
 
-import android.app.Notification;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,18 +8,15 @@ import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.os.RemoteException;
 
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.AppConstant;
 import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
-import com.sad.assistant.live.guardian.api.parameters.ServiceAidlParameters;
-import com.sad.assistant.live.guardian.api.service.GuardiaService2;
+import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskParameters;
 import com.sad.assistant.live.guardian.api.service.IService2AidlInterface;
 import com.sad.assistant.live.guardian.api.service.IServiceDelegate;
 import com.sad.assistant.live.guardian.api.service.GuardiaService1;
-import com.sad.assistant.live.guardian.impl.utils.NotificationUtils;
 
 @GuardiaDelegate(name = "SERVICE_2")
 public class _GuardiaService2Delegate implements IServiceDelegate {
@@ -66,7 +62,7 @@ public class _GuardiaService2Delegate implements IServiceDelegate {
         public void onServiceConnected(ComponentName name, IBinder service) {
 
             if (bundle!=null){
-                ServiceAidlParameters parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
+                GuardiaTaskParameters parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
                 if (parameters!=null){
                     try {
                         IService2AidlInterface aidl= IService2AidlInterface.Stub.asInterface(service);
@@ -110,7 +106,7 @@ public class _GuardiaService2Delegate implements IServiceDelegate {
     private final class ServiceBinder extends IService2AidlInterface.Stub {
 
         @Override
-        public void action(ServiceAidlParameters parameters) throws RemoteException {
+        public void action(GuardiaTaskParameters parameters) throws RemoteException {
             if (parameters!=null){
                 INotificationStyle style=parameters.getNotificationStyle();
                 if (style!=null){
