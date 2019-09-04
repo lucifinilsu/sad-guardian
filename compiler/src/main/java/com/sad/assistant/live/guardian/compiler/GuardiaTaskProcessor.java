@@ -6,6 +6,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -112,8 +113,7 @@ public class GuardiaTaskProcessor extends AbstractProcessor {
             codeBlockRegisterClass =CodeBlock.builder().build();
         }
         codeBlockRegisterClass = codeBlockRegisterClass.toBuilder()
-                .addStatement("$T.getInstance().guardian().guardiaStudio().put("+tag+",$T.class)",
-                        ClassName.bestGuess("com.sad.assistant.live.guardian.api.GuardianSDK"),
+                .addStatement("guardian.guardiaStudio().put("+tag+",$T.class)",
                         workerElement.asType()
                         )
                 .build()
@@ -132,6 +132,7 @@ public class GuardiaTaskProcessor extends AbstractProcessor {
             MethodSpec.Builder mb_RegisterIn=MethodSpec.methodBuilder("registerIn")
                     .addAnnotation(Override.class)
                     .addModifiers(Modifier.PUBLIC)
+                    .addParameter(ParameterSpec.builder(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardian"),"guardian").build())
                     .addCode(codeBlockRegisterClass)
                     ;
             tb.addMethod(mb_RegisterIn.build());
