@@ -105,7 +105,7 @@ public class SourceCodeFactoryImpl implements ISourceCodeFactory {
                 String sourceCode =
                         //response.body().string();
                         new String(bytes, "utf-8");
-                System.out.println("源码："+sourceCode);
+                //System.out.println("源码："+sourceCode);
                 future.creator()
                         .statusCode(code)
                         .statusMsg(msg)
