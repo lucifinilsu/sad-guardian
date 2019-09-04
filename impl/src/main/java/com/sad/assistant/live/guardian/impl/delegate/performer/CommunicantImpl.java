@@ -3,7 +3,7 @@ package com.sad.assistant.live.guardian.impl.delegate.performer;
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.parameters.ICommunicant;
 import com.sad.assistant.live.guardian.api.parameters.IGuardiaFuture;
-
+@SuppressWarnings("unchecked")
 @GuardiaDelegate(name = "PERFORMER_COMMUNICANT")
 public class CommunicantImpl implements ICommunicant {
 

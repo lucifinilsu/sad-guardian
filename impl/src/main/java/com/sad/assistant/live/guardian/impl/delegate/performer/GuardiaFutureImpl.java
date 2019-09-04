@@ -4,6 +4,7 @@ import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskState;
 import com.sad.assistant.live.guardian.api.parameters.IGuardiaFuture;
 import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
+@SuppressWarnings("unchecked")
 @GuardiaDelegate(name = "PERFORMER_GUARDIAFUTURE")
 public class GuardiaFutureImpl implements IGuardiaFuture,IGuardiaFuture.Creator {
 
