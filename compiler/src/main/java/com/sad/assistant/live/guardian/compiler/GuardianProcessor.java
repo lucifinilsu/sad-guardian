@@ -192,7 +192,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                     )
                     .addStatement("constructor.setAccessible(true)")
                     .addStatement("$T register=constructor.newInstance()",ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardiaTaskRegister"))
-                    .addStatement("register.registerIn()")
+                    .addStatement("register.registerIn(guardian)")
                     .addStatement("return true")
                     .endControlFlow()
                     .beginControlFlow("catch($T e)",Exception.class)
