@@ -221,6 +221,7 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
                 }
             }
             else{
+                Log.e("GUARDIAN","------------------------->开始执行工作任务");
                 GuardianSDK.getInstance()
                         .guardian()
                         .guardiaStudio()
