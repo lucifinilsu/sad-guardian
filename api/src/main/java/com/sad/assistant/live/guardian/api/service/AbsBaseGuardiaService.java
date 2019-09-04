@@ -36,8 +36,8 @@ public abstract class AbsBaseGuardiaService extends Service {
 
     @Override
     public void onDestroy() {
+        getDelegate().onDestroy(this);
         super.onDestroy();
-        getDelegate().onCreate(this);
     }
 
     @Override

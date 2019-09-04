@@ -9,6 +9,9 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.sad.assistant.live.guardian.api.GuardianSDK;
+import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,8 +27,13 @@ public class MainActivity extends AppCompatActivity {
         wifiSleepOptimizer.optimize(this);
         */
 
-        /*IAppBootOptimizer appBootOptimizer=GuardianSDK.getInstance().guardian().appBootOptimizer();
-        appBootOptimizer.optimize(this);*/
+        IOptimizer appBootOptimizer= GuardianSDK.getInstance()
+                .guardian()
+                .delegateStudio()
+                .optimizerProvider()
+                .appBootOptimizer()
+                ;
+        appBootOptimizer.optimize(this);
 
         //registerContentObserver(this);
     }

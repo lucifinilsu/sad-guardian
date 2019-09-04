@@ -8,6 +8,7 @@ import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
 import com.sad.assistant.live.guardian.api.init.IAppWork;
 import com.sad.assistant.live.guardian.api.optimize.IOptimizer;
 import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskParameters;
+import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
 
 import java.lang.reflect.Constructor;
 import java.util.concurrent.TimeUnit;
@@ -80,15 +81,12 @@ public class GuardianSDK {
 
     public void start(GuardiaTaskParameters parameters){
         if (guardian!=null){
-            if(parameters!=null){
-                Bundle bundle=new Bundle();
-                bundle.putParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS,parameters);
-                guardian.start(bundle);
+            Bundle bundle=new Bundle();
+            if(parameters==null){
+                parameters=new GuardiaTaskParameters();
             }
-            else {
-                guardian.start(null);
-            }
-
+            bundle.putParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS,parameters);
+            guardian.start(bundle);
         }
     }
 

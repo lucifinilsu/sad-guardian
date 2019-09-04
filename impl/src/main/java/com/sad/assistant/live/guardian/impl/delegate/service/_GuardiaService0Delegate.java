@@ -94,11 +94,11 @@ public class _GuardiaService0Delegate implements IJobServiceDelegate {
         }
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             context.startForegroundService(localIntent);
-            context.startForegroundService(guardIntent);
+            //context.startForegroundService(guardIntent);
         }
         else {
             context.startService(localIntent);
-            context.startService(guardIntent);
+            //context.startService(guardIntent);
         }
     }
 
