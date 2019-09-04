@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
+import com.sad.assistant.live.guardian.api.AppConstant;
 import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
 import com.sad.assistant.live.guardian.api.R;
 import com.sad.basic.utils.app.AppInfoUtil;
@@ -102,7 +104,8 @@ public class NotificationUtils extends ContextWrapper {
         return notification;
     }
 
-    public static void updateNotification(Context context,INotificationStyle style){
+    public static void updateNotification(Service service, INotificationStyle style){
+        Context context=service.getApplicationContext();
         String title= AppInfoUtil.getAppName(context,context.getPackageName());
         String content="正在运行...";
         String des="";
@@ -115,5 +118,6 @@ public class NotificationUtils extends ContextWrapper {
             icon=style.iconRes();
         }
         Notification notification=createNotification(context,title,content,icon,intent);
+        service.startForeground(AppConstant.NOTIFICATION_CHANNEL,notification);
     }
 }
