@@ -85,12 +85,17 @@ public class _GuardiaService2Delegate implements IServiceDelegate {
     @Override
     public IBinder onBind(Service service, Intent intent) {
         this.service=service;
-        this.bundle=intent.getExtras();
+        startUp(service,intent,true);
         return getServiceBinlder();
     }
 
     @Override
     public int onStartCommand(Service service, Intent intent, int flags, int startId) {
+        startUp(service,intent,true);
+        return Service.START_REDELIVER_INTENT;
+    }
+
+    public void startUp(Service service,Intent intent,boolean bindService1){
         try {
             bundle=intent.getExtras();
             Intent intent1=new Intent(service, GuardiaService1.class);
@@ -109,7 +114,6 @@ public class _GuardiaService2Delegate implements IServiceDelegate {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return Service.START_REDELIVER_INTENT;
     }
 
     private final class ServiceBinder extends IService2AidlInterface.Stub {
