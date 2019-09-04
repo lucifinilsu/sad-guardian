@@ -104,7 +104,7 @@ public class _GuardiaService2Delegate implements IServiceDelegate {
                     style=parameters.getNotificationStyle();
                 }
             }
-            updateNotification(service.getApplicationContext(),style);
+            updateNotification(service,style);
             service.bindService(intent1, connection, Context.BIND_ABOVE_CLIENT);
         }catch (Exception e){
             e.printStackTrace();
@@ -125,7 +125,7 @@ public class _GuardiaService2Delegate implements IServiceDelegate {
         }
     }
 
-    private void updateNotification(Context context,INotificationStyle style){
+    private void updateNotification(Service context,INotificationStyle style){
         /*Intent intent2 = new Intent(getApplicationContext(), NotificationClickReceiver.class);
         intent2.setAction(NotificationClickReceiver.CLICK_NOTIFICATION);
         Notification notification = NotificationUtils.createNotification(this, style.api().getTitle(), style.api().getDescription(), style.api().getIconRes(), intent2);

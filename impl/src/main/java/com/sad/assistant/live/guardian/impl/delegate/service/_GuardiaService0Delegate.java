@@ -67,14 +67,14 @@ public class _GuardiaService0Delegate implements IJobServiceDelegate {
                 style=parameters.getNotificationStyle();
             }
         }
-        updateNotification(service.getApplicationContext(),style);
+        updateNotification(service,style);
         startService(service.getApplicationContext(),bundle);
         startId++;
         scheduleJobService(service.getApplicationContext(),startId,bundle);
         return START_REDELIVER_INTENT;
     }
 
-    private void updateNotification(Context context,INotificationStyle style){
+    private void updateNotification(Service context,INotificationStyle style){
         NotificationUtils.updateNotification(context,style);
     }
 

@@ -45,7 +45,7 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
         @Override
         public void postFuture(IGuardiaFuture future) {
             INotificationStyle style=future.notificationStyle();
-            updateNotification(service.getApplicationContext(),style);
+            updateNotification(service,style);
         }
     };
 
@@ -104,10 +104,10 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
 
             //foreground service
             if (parameters!=null){
-                updateNotification(service.getApplication(),parameters.getNotificationStyle());
+                updateNotification(service,parameters.getNotificationStyle());
             }
             else {
-                updateNotification(service.getApplicationContext(),null);
+                updateNotification(service,null);
             }
 
             //music
@@ -139,7 +139,7 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
         return true;
     }
 
-    private void updateNotification(Context context,INotificationStyle style){
+    private void updateNotification(Service context,INotificationStyle style){
         NotificationUtils.updateNotification(context,style);
     }
     private ScheduledExecutorService audioExecutor;
