@@ -56,6 +56,8 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
             /*if (!workIsStarted){
                 doWork(parameters,ActionSource.REMOTE_WAKE);
             }*/
+           INotificationStyle style=parameters==null?null:parameters.getNotificationStyle();
+            updateNotification(service,style);
         }
     }
 
