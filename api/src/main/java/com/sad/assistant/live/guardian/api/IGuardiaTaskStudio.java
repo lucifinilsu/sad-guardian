@@ -22,9 +22,7 @@ public interface IGuardiaTaskStudio extends InstanceProvider<Integer,IGuardiaTas
 
     void clearInstances();
 
-    void traverse(ITraversedCallback traversedCallback);
+    void traverse(IGuardiaTasksClasseTraversedCallback traversedCallback);
 
-    interface ITraversedCallback{
-        void OnTraversed(int tag, Class<? extends IGuardiaTask> cls,InstanceProvider<Integer,IGuardiaTask> instanceProvider);
-    }
+
 }

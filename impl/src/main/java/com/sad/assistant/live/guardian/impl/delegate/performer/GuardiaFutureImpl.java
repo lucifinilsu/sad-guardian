@@ -1,6 +1,7 @@
 package com.sad.assistant.live.guardian.impl.delegate.performer;
 
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
+import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskState;
 import com.sad.assistant.live.guardian.api.parameters.IGuardiaFuture;
 import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
 @GuardiaDelegate(name = "PERFORMER_GUARDIAFUTURE")
@@ -8,6 +9,8 @@ public class GuardiaFutureImpl implements IGuardiaFuture,IGuardiaFuture.Creator 
 
     private INotificationStyle notificationStyle;
     private Object data;
+    private int taskId=-1;
+    private GuardiaTaskState state;
 
     protected GuardiaFutureImpl(){}
 
@@ -18,6 +21,16 @@ public class GuardiaFutureImpl implements IGuardiaFuture,IGuardiaFuture.Creator 
     @Override
     public INotificationStyle notificationStyle() {
         return this.notificationStyle;
+    }
+
+    @Override
+    public int taskId() {
+        return this.taskId;
+    }
+
+    @Override
+    public GuardiaTaskState state() {
+        return this.state;
     }
 
     @Override
@@ -39,6 +52,18 @@ public class GuardiaFutureImpl implements IGuardiaFuture,IGuardiaFuture.Creator 
     @Override
     public Creator set(Object o) {
         this.data=o;
+        return this;
+    }
+
+    @Override
+    public Creator taskId(int id) {
+        this.taskId=id;
+        return this;
+    }
+
+    @Override
+    public Creator state(GuardiaTaskState state) {
+        this.state=state;
         return this;
     }
 

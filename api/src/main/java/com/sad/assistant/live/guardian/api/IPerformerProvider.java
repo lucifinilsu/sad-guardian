@@ -7,6 +7,14 @@ public interface IPerformerProvider {
 
     ICommunicant communicant();
 
-    IGuardiaFuture.Creator guardiaFutureCreator();
+    IGuardiaFuture.Creator guardiaFutureCreator(int taskId);
+
+    IGuardiaFuture.Creator guardiaFutureCreatorDone(int taskId);
+
+    IGuardiaFuture.Creator guardiaFutureCreatorWorking(int taskId);
+
+    IGuardiaFuture.Creator guardiaFutureCreatorUnworked(int taskId);
+
+    IGuardiaFuture.Creator guardiaFutureCreatorException(int taskId);
 
 }

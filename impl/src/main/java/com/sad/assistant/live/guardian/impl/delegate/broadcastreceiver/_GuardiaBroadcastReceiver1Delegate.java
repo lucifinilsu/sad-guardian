@@ -43,7 +43,11 @@ public final class _GuardiaBroadcastReceiver1Delegate implements IBroadcastRecei
 
 
     private boolean IsForeground(Context context) {
-        IAppWork appWork=GuardianSDK.getInstance().guardian().appWork(false,true);
+        IAppWork appWork=GuardianSDK.getInstance()
+                .guardian()
+                .delegateStudio()
+                .optimizerProvider()
+                .appWork(false,true);
         if (appWork!=null){
             return appWork.isApplicationBackground();
         }

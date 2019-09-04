@@ -17,6 +17,7 @@ import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskParameters;
 import com.sad.assistant.live.guardian.api.service.IService2AidlInterface;
 import com.sad.assistant.live.guardian.api.service.IServiceDelegate;
 import com.sad.assistant.live.guardian.api.service.GuardiaService1;
+import com.sad.assistant.live.guardian.impl.utils.NotificationUtils;
 
 @GuardiaDelegate(name = "SERVICE_2")
 public class _GuardiaService2Delegate implements IServiceDelegate {
@@ -96,6 +97,14 @@ public class _GuardiaService2Delegate implements IServiceDelegate {
             if (bundle!=null){
                 intent1.putExtras(bundle);
             }
+            INotificationStyle style=null;
+            if (bundle!=null){
+                GuardiaTaskParameters parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
+                if (parameters!=null){
+                    style=parameters.getNotificationStyle();
+                }
+            }
+            updateNotification(service.getApplicationContext(),style);
             service.bindService(intent1, connection, Context.BIND_ABOVE_CLIENT);
         }catch (Exception e){
             e.printStackTrace();
@@ -107,20 +116,22 @@ public class _GuardiaService2Delegate implements IServiceDelegate {
 
         @Override
         public void action(GuardiaTaskParameters parameters) throws RemoteException {
-            if (parameters!=null){
+            /*if (parameters!=null){
                 INotificationStyle style=parameters.getNotificationStyle();
                 if (style!=null){
                     updateNotification(style);
                 }
-            }
+            }*/
         }
     }
 
-    private void updateNotification(INotificationStyle style){
+    private void updateNotification(Context context,INotificationStyle style){
         /*Intent intent2 = new Intent(getApplicationContext(), NotificationClickReceiver.class);
         intent2.setAction(NotificationClickReceiver.CLICK_NOTIFICATION);
         Notification notification = NotificationUtils.createNotification(this, style.api().getTitle(), style.api().getDescription(), style.api().getIconRes(), intent2);
         startForeground(AppConstant.NOTIFICATION_CHANNEL, notification);*/
+        NotificationUtils.updateNotification(context,style);
+
     }
 
     @Override

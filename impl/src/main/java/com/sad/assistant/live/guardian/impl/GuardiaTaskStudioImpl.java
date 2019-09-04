@@ -1,6 +1,8 @@
 package com.sad.assistant.live.guardian.impl;
 
 import com.sad.assistant.live.guardian.api.IGuardiaTaskStudio;
+import com.sad.assistant.live.guardian.api.IGuardiaTasksClasseTraversedCallback;
+import com.sad.assistant.live.guardian.api.parameters.IGuardiaFuture;
 import com.sad.assistant.live.guardian.api.parameters.IGuardiaTask;
 
 import org.apache.commons.lang3.concurrent.ConcurrentUtils;
@@ -70,7 +72,8 @@ public class GuardiaTaskStudioImpl implements IGuardiaTaskStudio {
     }
 
     @Override
-    public void traverse(ITraversedCallback traversedCallback) {
+    public void traverse(IGuardiaTasksClasseTraversedCallback traversedCallback) {
+        Map<Integer, IGuardiaFuture> futureMap=new ConcurrentSkipListMap<>(Collections.reverseOrder());
         while (_GUARDIA_TASKS.entrySet().iterator().hasNext()){
             Map.Entry<Integer,Class<? extends IGuardiaTask>> entry=_GUARDIA_TASKS.entrySet().iterator().next();
             int key=entry.getKey();

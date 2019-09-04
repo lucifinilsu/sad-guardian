@@ -7,69 +7,152 @@
         <javaCode>
             <tag>0</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
-            <package>com.sad.assistant.live.guardian.impl</package>
-            <class>DelegateStudioImpl</class>
-        </javaCode>
-        <javaCode>
-            <tag>1</tag>
-            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
-            <package>com.sad.assistant.live.guardian.impl</package>
-            <class>DefaultGuardian</class>
-        </javaCode>
-        <javaCode>
-            <tag>2</tag>
-            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
-            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
-            <class>AppBootOptimizerImpl</class>
-        </javaCode>
-        <javaCode>
-            <tag>3</tag>
-            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
-            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
-            <class>BatteryOptimizerImpl</class>
-        </javaCode>
-        <javaCode>
-            <tag>4</tag>
-            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
-            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
-            <class>WifiSleepOptimizerImpl</class>
-        </javaCode>
-        <javaCode>
-            <tag>5</tag>
-            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.utils</package>
             <class>PushTokenManager</class>
         </javaCode>
         <javaCode>
-            <tag>6</tag>
+            <tag>1</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.utils</package>
+            <class>ProcessUtils</class>
+        </javaCode>
+        <javaCode>
+            <tag>2</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.utils</package>
+            <class>NotificationUtils</class>
+        </javaCode>
+        <javaCode>
+            <tag>3</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.activity</package>
+            <class>_GuardiaActivity1Delegate</class>
+        </javaCode>
+        <javaCode>
+            <tag>4</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.broadcastreceiver</package>
+            <class>_GuardiaBroadcastReceiver1Delegate</class>
+        </javaCode>
+        <javaCode>
+            <tag>5</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.init</package>
             <class>ActivityLifecycleCallback</class>
         </javaCode>
         <javaCode>
-            <tag>7</tag>
+            <tag>6</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.init</package>
             <class>AppWorkImpl</class>
         </javaCode>
         <javaCode>
+            <tag>7</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
+            <class>Service0Delegate</class>
+        </javaCode>
+        <javaCode>
             <tag>8</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
-            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
-            <class>AccountSyncOptimizer</class>
+            <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
+            <class>Service1Delegate</class>
         </javaCode>
         <javaCode>
             <tag>9</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
+            <class>Service2Delegate</class>
+        </javaCode>
+        <!--<javaCode>
+            <tag>10</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
+            <class>Service3Delegate</class>
+        </javaCode>-->
+        <javaCode>
+            <tag>11</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
             <class>Service4Delegate</class>
         </javaCode>
         <javaCode>
-            <tag>10</tag>
+            <tag>12</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
             <class>Service5Delegate</class>
         </javaCode>
+        <javaCode>
+            <tag>13</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.performer</package>
+            <class>CommunicantImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>14</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.performer</package>
+            <class>GuardiaFutureImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>15</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
+            <class>AppBootOptimizerImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>16</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
+            <class>BatteryOptimizerImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>17</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
+            <class>WifiSleepOptimizerImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>18</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.delegate.optimize</package>
+            <class>AccountSyncOptimizer</class>
+        </javaCode>
+        <javaCode>
+            <tag>19</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl</package>
+            <class>AndroidComponentDelegateProviderImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>20</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl</package>
+            <class>OptimizerProviderImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>21</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl</package>
+            <class>PerformerProviderImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>22</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl</package>
+            <class>GuardiaTaskStudioImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>23</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl</package>
+            <class>DelegateStudioImpl</class>
+        </javaCode>
+        <javaCode>
+            <tag>24</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl</package>
+            <class>DefaultGuardian</class>
+        </javaCode>
     </data>
-
 </app>

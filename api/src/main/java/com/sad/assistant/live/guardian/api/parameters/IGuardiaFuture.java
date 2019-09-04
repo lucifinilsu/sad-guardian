@@ -4,6 +4,10 @@ public interface IGuardiaFuture {
 
     INotificationStyle notificationStyle();
 
+    int taskId();
+
+    GuardiaTaskState state();
+
     <D> D get();
 
     Creator creator();
@@ -13,6 +17,10 @@ public interface IGuardiaFuture {
         Creator notificationStyle(INotificationStyle notificationStyle);
 
         Creator set(Object o);
+
+        Creator taskId(int id);
+
+        Creator state(GuardiaTaskState state);
 
         IGuardiaFuture create();
 

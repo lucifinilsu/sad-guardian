@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.sad.assistant.live.guardian.api.IPerformerProvider;
 import com.sad.assistant.live.guardian.api.InstanceProvider;
+import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskState;
 import com.sad.assistant.live.guardian.api.parameters.ICommunicant;
 import com.sad.assistant.live.guardian.api.parameters.IGuardiaFuture;
 
@@ -25,7 +26,29 @@ public class PerformerProviderImpl implements IPerformerProvider {
     }
 
     @Override
-    public IGuardiaFuture.Creator guardiaFutureCreator() {
-        return this.instanceProvider.obtain("PERFORMER_GUARDIAFUTURE",true,false);
+    public IGuardiaFuture.Creator guardiaFutureCreator(int taskId) {
+        IGuardiaFuture.Creator creator= this.instanceProvider.obtain("PERFORMER_GUARDIAFUTURE",true,false);
+        creator.taskId(taskId);
+        return creator;
+    }
+
+    @Override
+    public IGuardiaFuture.Creator guardiaFutureCreatorDone(int taskId) {
+        return guardiaFutureCreator(taskId).state(GuardiaTaskState.DONE);
+    }
+
+    @Override
+    public IGuardiaFuture.Creator guardiaFutureCreatorWorking(int taskId) {
+        return guardiaFutureCreator(taskId).state(GuardiaTaskState.WORKING);
+    }
+
+    @Override
+    public IGuardiaFuture.Creator guardiaFutureCreatorUnworked(int taskId) {
+        return guardiaFutureCreator(taskId).state(GuardiaTaskState.UNWORKED);
+    }
+
+    @Override
+    public IGuardiaFuture.Creator guardiaFutureCreatorException(int taskId) {
+        return guardiaFutureCreator(taskId).state(GuardiaTaskState.EXCEPTOIN);
     }
 }

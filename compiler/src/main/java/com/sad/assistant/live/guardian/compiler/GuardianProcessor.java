@@ -142,7 +142,6 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
             TypeSpec.Builder tb=TypeSpec.classBuilder("Repository")
                     .addModifiers(Modifier.PUBLIC)
                     .addSuperinterface(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IRepository"))
-                    .addSuperinterface(ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerFilter"))
                     .addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value","$S","unchecked").build())
                     ;
             FieldSpec f_guardian=FieldSpec.builder(
@@ -155,31 +154,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
             MethodSpec m_constructor=MethodSpec.constructorBuilder()
                     .addModifiers(Modifier.PROTECTED)
                     .build();
-            MethodSpec m_registerIn=MethodSpec.methodBuilder("registerIn")
-                    .addAnnotation(Override.class)
-                    .addModifiers(Modifier.PUBLIC)
-                    .returns(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardian"))
-                    .addParameter(ParameterSpec.builder(ClassName.bestGuess("android.content.Context"),"context").build())
-                    .beginControlFlow("try")
-                    .addStatement(" $T<String> clsNames=$T.with(context)\n" +
-                            "                    .instantRunSupport(true)\n" +
-                            "                    .build()\n" +
-                            "                    .scan(\"com.sad.assistant.live.guardian.impl.delegate\",this);",
-
-                            Set.class,
-                            ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerClient")
-
-                    )
-                    .endControlFlow()
-                    .beginControlFlow("catch($T e)",Exception.class)
-                    .addStatement("e.printStackTrace()")
-                    .endControlFlow()
-                    .addStatement("return guardian")
-                    .build()
-                    ;
-
-
-            MethodSpec m_accept=MethodSpec.methodBuilder("accept")
+            MethodSpec m_delegate_accept=MethodSpec.methodBuilder("accept")
                     .addModifiers(Modifier.PUBLIC)
                     .returns(boolean.class)
                     .addAnnotation(Override.class)
@@ -193,17 +168,88 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                     .addStatement("return false")
                     .endControlFlow()
                     .addStatement("String name=guardiaDelegate.name()")
-                    .addStatement("guardian.delegateStudio()\n" +
-                            "                .put(name,cls)")
+                    .addStatement("guardian.delegateStudio().put(name,cls)")
                     .addStatement("return true")
+                    .build();
+            TypeSpec clsScannerDelegate=TypeSpec.anonymousClassBuilder("")
+                    .addSuperinterface(ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerFilter"))
+                    .addMethod(m_delegate_accept)
+                    .build();
+
+            MethodSpec m_task_accept=MethodSpec.methodBuilder("accept")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(boolean.class)
+                    .addAnnotation(Override.class)
+                    .addParameter(ParameterSpec.builder(
+                            ParameterizedTypeName.get(
+                                    ClassName.get(Class.class), TypeVariableName.get("?")),
+                            "cls"
+                    ).build())
+                    .beginControlFlow("try")
+                    .addStatement("$T constructor= ($T) cls.getDeclaredConstructor()",
+                            ParameterizedTypeName.get(ClassName.bestGuess("java.lang.reflect.Constructor"),WildcardTypeName.subtypeOf(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardiaTaskRegister"))),
+                            ParameterizedTypeName.get(ClassName.bestGuess("java.lang.reflect.Constructor"),WildcardTypeName.subtypeOf(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardiaTaskRegister")))
+                    )
+                    .addStatement("constructor.setAccessible(true)")
+                    .addStatement("$T register=constructor.newInstance()",ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardiaTaskRegister"))
+                    .addStatement("register.registerIn()")
+                    .addStatement("return true")
+                    .endControlFlow()
+                    .beginControlFlow("catch($T e)",Exception.class)
+                    .addStatement("e.printStackTrace()")
+                    .endControlFlow()
+                    .addStatement("return false")
+                    .build();
+            TypeSpec clsScannerTask=TypeSpec.anonymousClassBuilder("")
+                    .addSuperinterface(ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerFilter"))
+                    .addMethod(m_task_accept)
+                    .build();
+
+
+            MethodSpec m_registerIn=MethodSpec.methodBuilder("registerIn")
+                    .addAnnotation(Override.class)
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardian"))
+                    .addParameter(ParameterSpec.builder(ClassName.bestGuess("android.content.Context"),"context").build())
+                    .beginControlFlow("try")
+                    .addStatement("guardian=$T.newInstance(context)",ClassName.bestGuess("com.sad.assistant.live.guardian.impl.DefaultGuardian"))
+                    .addStatement("$T<String> delegateClsNames=$T.with(context)\n" +
+                            "                    .instantRunSupport(true)\n" +
+                            "                    .build()\n" +
+                            "                    .scan(\"com.sad.assistant.live.guardian.impl.delegate\",$L);",
+
+                            Set.class,
+                            ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerClient"),
+                            clsScannerDelegate
+
+                    )
+                    .addStatement("$T<String> taskRegisterClsNames=$T.with(context)\n" +
+                                    "                    .instantRunSupport(true)\n" +
+                                    "                    .build()\n" +
+                                    "                    .scan(\"com.sad.assistant.live.guardian.api.task\",$L);",
+
+                            Set.class,
+                            ClassName.bestGuess("com.sad.basic.utils.clazz.ClassScannerClient"),
+                            clsScannerTask
+
+                    )
+                    .endControlFlow()
+                    .beginControlFlow("catch($T e)",Exception.class)
+                    .addStatement("e.printStackTrace()")
+                    .endControlFlow()
+                    .addStatement("return guardian")
                     .build()
+                    ;
+
+
+
                     ;
 
 
             tb.addMethod(m_constructor)
                     .addField(f_guardian)
                     .addMethod(m_registerIn)
-                    .addMethod(m_accept);
+                    ;
 
             JavaFile.Builder jb= JavaFile.builder(pkg,tb.build());
             jb.build().writeTo(filer);

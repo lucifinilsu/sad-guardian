@@ -4,7 +4,7 @@ import android.content.Context;
 
 public interface IGuardiaTask {
 
-    void onWork(Context context, ActionSource source,ICommunicant communicant);
+    <F extends IGuardiaFuture> F onWork(Context context, ActionSource source,ICommunicant communicant);
 
     void onStop(Context context);
 

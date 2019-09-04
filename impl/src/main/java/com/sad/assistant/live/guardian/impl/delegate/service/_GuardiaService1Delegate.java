@@ -17,6 +17,7 @@ import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.AppConstant;
 import com.sad.assistant.live.guardian.api.GuardianSDK;
 import com.sad.assistant.live.guardian.api.IGuardiaTaskStudio;
+import com.sad.assistant.live.guardian.api.IGuardiaTasksClasseTraversedCallback;
 import com.sad.assistant.live.guardian.api.InstanceProvider;
 import com.sad.assistant.live.guardian.api.parameters.ActionSource;
 import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskParameters;
@@ -28,6 +29,7 @@ import com.sad.assistant.live.guardian.api.service.GuardiaService2;
 import com.sad.assistant.live.guardian.api.service.IService2AidlInterface;
 import com.sad.assistant.live.guardian.api.service.IServiceDelegate;
 import com.sad.assistant.live.guardian.api.R;
+import com.sad.assistant.live.guardian.impl.utils.NotificationUtils;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -43,9 +45,7 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
         @Override
         public void postFuture(IGuardiaFuture future) {
             INotificationStyle style=future.notificationStyle();
-            if (style!=null){
-                updateNotification(style);
-            }
+            updateNotification(service.getApplicationContext(),style);
         }
     };
 
@@ -53,7 +53,9 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
 
         @Override
         public void action(GuardiaTaskParameters parameters) throws RemoteException {
-            doWork(parameters,ActionSource.REMOTE_WAKE);
+            /*if (!workIsStarted){
+                doWork(parameters,ActionSource.REMOTE_WAKE);
+            }*/
         }
     }
 
@@ -71,60 +73,77 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
     @Override
     public void onCreate(Service service) {
         this.service=service;
+        this.workIsStarted=false;
 
     }
     @Override
     public IBinder onBind(Service service,Intent intent) {
         this.service=service;
         this.bundle=intent.getExtras();
+        if (!workIsStarted){
+            startUp(service,intent,ActionSource.REMOTE_WAKE);
+        }
         return getServiceBinder();
     }
 
     @Override
     public int onStartCommand(Service service, Intent intent, int flags, int startId) {
+        if (!workIsStarted){
+            startUp(service,intent,ActionSource.LOCAL_WAKE);
+        }
+        return START_REDELIVER_INTENT;
+    }
+
+    private boolean startUp(Service service, Intent intent,ActionSource source){
         try {
+            GuardiaTaskParameters parameters=null;
             bundle=intent.getExtras();
-            GuardiaTaskParameters parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
-            if (parameters!=null && parameters.getNotificationStyle()!=null && mediaPlayer!=null){
-                updateNotification(parameters.getNotificationStyle());
-                return START_REDELIVER_INTENT;
+            if (bundle!=null){
+                parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
             }
+
             //foreground service
             if (parameters!=null){
-                updateNotification(parameters.getNotificationStyle());
+                updateNotification(service.getApplication(),parameters.getNotificationStyle());
             }
+            else {
+                updateNotification(service.getApplicationContext(),null);
+            }
+
+            //music
+            if (mediaPlayer!=null){
+                return false;
+            }
+
             //heartBeat start
             long h= GuardianSDK.getInstance().getHeartBeat();
             if (h<8){
                 h=8;
             }
-            heartBeat(h,GuardianSDK.getInstance().getHeartBeatTimeUnit());
+            heartBeat(service,h,GuardianSDK.getInstance().getHeartBeatTimeUnit());
+
             //Demon Service
-            try {
-                Intent intent3 = new Intent(service, GuardiaService2.class);
-                if (bundle!=null){
-                    intent3.putExtras(bundle);
-                }
-                service.bindService(intent3, connection, Context.BIND_ABOVE_CLIENT);
-            } catch (Exception e) {
-                e.printStackTrace();
+            Intent intent3 = new Intent(service, GuardiaService2.class);
+            if (bundle!=null){
+                intent3.putExtras(bundle);
             }
+            service.bindService(intent3, connection, Context.BIND_ABOVE_CLIENT);
+
             //startwork
-            doWork(parameters,ActionSource.LOCAL_WAKE);
-
-
+            doWork(parameters,source);
+            return true;
 
         }catch (Exception e){
             e.printStackTrace();
         }
-        return START_REDELIVER_INTENT;
+        return true;
     }
 
-    private void updateNotification(INotificationStyle style){
-
+    private void updateNotification(Context context,INotificationStyle style){
+        NotificationUtils.updateNotification(context,style);
     }
     private ScheduledExecutorService audioExecutor;
-    private void heartBeat(long t,TimeUnit unit){
+    private void heartBeat(Service service,long t,TimeUnit unit){
         if (audioExecutor==null){
             audioExecutor= Executors.newScheduledThreadPool(3);
             audioExecutor.scheduleAtFixedRate(new Runnable() {
@@ -185,7 +204,9 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
         service.unbindService(connection);
     }
 
+    private boolean workIsStarted=true;
     private void doWork(GuardiaTaskParameters parameters,ActionSource defaultSource){
+        workIsStarted=true;
         if (parameters!=null){
             int singleTarget=parameters.getSingleTarget();
             ActionSource source = parameters.getSource();
@@ -202,13 +223,14 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
                 GuardianSDK.getInstance()
                         .guardian()
                         .guardiaStudio()
-                        .traverse(new IGuardiaTaskStudio.ITraversedCallback() {
+                        .traverse(new IGuardiaTasksClasseTraversedCallback() {
                             @Override
-                            public void OnTraversed(int tag, Class<? extends IGuardiaTask> cls, InstanceProvider<Integer, IGuardiaTask> instanceProvider) {
+                            public <D> D OnTraversed(int tag, Class<? extends IGuardiaTask> cls, InstanceProvider<Integer, IGuardiaTask> instanceProvider) {
                                 IGuardiaTask task=instanceProvider.obtain(tag,true,false);
                                 if (task!=null){
-                                    task.onWork(service.getApplicationContext(),source,communicant);
+                                    return task.onWork(service.getApplicationContext(),source,communicant);
                                 }
+                                return null;
                             }
                         });
             }
@@ -217,13 +239,14 @@ public class _GuardiaService1Delegate implements IServiceDelegate {
             GuardianSDK.getInstance()
                     .guardian()
                     .guardiaStudio()
-                    .traverse(new IGuardiaTaskStudio.ITraversedCallback() {
+                    .traverse(new IGuardiaTasksClasseTraversedCallback(){
                         @Override
-                        public void OnTraversed(int tag, Class<? extends IGuardiaTask> cls, InstanceProvider<Integer, IGuardiaTask> instanceProvider) {
+                        public <D> D OnTraversed(int tag, Class<? extends IGuardiaTask> cls, InstanceProvider<Integer, IGuardiaTask> instanceProvider) {
                             IGuardiaTask task=instanceProvider.obtain(tag,true,false);
                             if (task!=null){
-                                task.onWork(service.getApplicationContext(),defaultSource,communicant);
+                                return task.onWork(service.getApplicationContext(),defaultSource,communicant);
                             }
+                            return null;
                         }
                     });
         }

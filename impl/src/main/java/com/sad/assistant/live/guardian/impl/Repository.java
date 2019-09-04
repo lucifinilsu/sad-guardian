@@ -25,6 +25,7 @@ public class Repository implements IRepository {
   @Override
   public IGuardian registerIn(Context context) {
     try {
+
       //新增
       guardian=DefaultGuardian.newInstance(context);
       Set<String> delegateClsNames=ClassScannerClient.with(context)

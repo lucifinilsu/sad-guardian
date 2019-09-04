@@ -53,7 +53,11 @@ public class AppWorkImpl implements IAppWork {
     }
 
     private void optimizeAccount(Application application){
-        IOptimizer accountSyncOptimizer= GuardianSDK.getInstance().guardian().accountSyncOptimizer(false,true);
+        IOptimizer accountSyncOptimizer= GuardianSDK.getInstance()
+                .guardian()
+                .delegateStudio()
+                .optimizerProvider()
+                .accountSyncOptimizer();
         accountSyncOptimizer.optimize(application);
     }
 }

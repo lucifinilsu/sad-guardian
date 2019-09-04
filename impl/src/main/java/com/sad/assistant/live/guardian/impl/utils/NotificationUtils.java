@@ -12,6 +12,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
+import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
+import com.sad.assistant.live.guardian.impl.R;
+import com.sad.basic.utils.app.AppInfoUtil;
+
+import java.lang.reflect.Constructor;
+
 public class NotificationUtils extends ContextWrapper {
     private NotificationManager manager;
     private String id;
@@ -94,5 +100,20 @@ public class NotificationUtils extends ContextWrapper {
             notification = notificationUtils.getNotification_25(title, content, icon,intent).build();
         }
         return notification;
+    }
+
+    public static void updateNotification(Context context,INotificationStyle style){
+        String title= AppInfoUtil.getAppName(context,context.getPackageName());
+        String content="正在运行中...";
+        String des="";
+        int icon = R.drawable.ic_default_notification_24dp;
+        Intent intent=new Intent();
+        if (style!=null){
+            title=style.title();
+            content=style.content();
+            des=style.description();
+            icon=style.iconRes();
+        }
+        Notification notification=createNotification(context,title,content,icon,intent);
     }
 }

@@ -16,6 +16,8 @@ public interface IDelegateStudio extends InstanceProvider<String,Object>{
 
     IOptimizerProvider optimizerProvider();
 
+    IPerformerProvider performerProvider();
+
 
 
 }

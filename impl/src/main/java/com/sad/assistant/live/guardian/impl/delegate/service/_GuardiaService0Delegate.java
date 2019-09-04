@@ -12,10 +12,15 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
+import com.sad.assistant.live.guardian.api.AppConstant;
+import com.sad.assistant.live.guardian.api.parameters.GuardiaTaskParameters;
+import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
 import com.sad.assistant.live.guardian.api.service.GuardiaService0;
 import com.sad.assistant.live.guardian.api.service.GuardiaService1;
 import com.sad.assistant.live.guardian.api.service.GuardiaService2;
 import com.sad.assistant.live.guardian.api.service.IJobServiceDelegate;
+import com.sad.assistant.live.guardian.api.service.IService2AidlInterface;
+import com.sad.assistant.live.guardian.impl.utils.NotificationUtils;
 import com.sad.assistant.live.guardian.impl.utils.ProcessUtils;
 
 import static android.app.Service.START_REDELIVER_INTENT;
@@ -55,10 +60,22 @@ public class _GuardiaService0Delegate implements IJobServiceDelegate {
     @Override
     public int onStartCommand(Service service,Intent intent, int flags, int startId) {
         this.bundle=intent.getExtras();
+        INotificationStyle style=null;
+        if (bundle!=null){
+            GuardiaTaskParameters parameters=bundle.getParcelable(AppConstant.INTENT_KEY_SERVICEAIDLPARAMETERS);
+            if (parameters!=null){
+                style=parameters.getNotificationStyle();
+            }
+        }
+        updateNotification(service.getApplicationContext(),style);
         startService(service.getApplicationContext(),bundle);
         startId++;
         scheduleJobService(service.getApplicationContext(),startId,bundle);
         return START_REDELIVER_INTENT;
+    }
+
+    private void updateNotification(Context context,INotificationStyle style){
+        NotificationUtils.updateNotification(context,style);
     }
 
     @Override

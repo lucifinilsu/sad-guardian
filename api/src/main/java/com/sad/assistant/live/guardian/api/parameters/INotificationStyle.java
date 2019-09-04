@@ -12,6 +12,8 @@ public interface INotificationStyle extends IParcelable {
 
     String description();
 
+    String content();
+
     int iconRes();
 
     Creator creator();
@@ -22,6 +24,8 @@ public interface INotificationStyle extends IParcelable {
 
         Creator description(String description);
 
+        Creator content(String content);
+
         Creator iconRes(int iconRes);
 
         INotificationStyle create();
@@ -31,6 +35,7 @@ public interface INotificationStyle extends IParcelable {
     default void writeToParcel(Parcel parcel, int i){
         parcel.writeString(title());
         parcel.writeString(description());
+        parcel.writeString(content());
         parcel.writeInt(iconRes());
     }
 
@@ -39,6 +44,7 @@ public interface INotificationStyle extends IParcelable {
         creator()
                 .title(in.readString())
                 .description(in.readString())
+                .content(in.readString())
                 .iconRes(in.readInt())
                 .create();
     }

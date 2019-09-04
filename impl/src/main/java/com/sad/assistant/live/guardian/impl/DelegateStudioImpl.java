@@ -3,6 +3,7 @@ package com.sad.assistant.live.guardian.impl;
 import com.sad.assistant.live.guardian.api.IAndroidComponentDelegateProvider;
 import com.sad.assistant.live.guardian.api.IDelegateStudio;
 import com.sad.assistant.live.guardian.api.IOptimizerProvider;
+import com.sad.assistant.live.guardian.api.IPerformerProvider;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -73,6 +74,11 @@ public class DelegateStudioImpl implements IDelegateStudio {
     @Override
     public IOptimizerProvider optimizerProvider() {
         return OptimizerProviderImpl.newInstance(this);
+    }
+
+    @Override
+    public IPerformerProvider performerProvider() {
+        return PerformerProviderImpl.newInstance(this);
     }
 
     @Override
