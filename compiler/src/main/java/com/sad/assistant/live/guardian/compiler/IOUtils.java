@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
@@ -383,7 +384,10 @@ public final class IOUtils {
         if (!createOrExistsFile(file)) return false;
         BufferedWriter bw = null;
         try {
-            bw = new BufferedWriter(new FileWriter(file, append));
+            /*bw = new BufferedWriter(new FileWriter(file, append));
+            bw.write(content);*/
+            OutputStreamWriter writerStream = new OutputStreamWriter(new FileOutputStream(file),"UTF-8");
+            bw= new BufferedWriter(writerStream);
             bw.write(content);
             return true;
         } catch (IOException e) {

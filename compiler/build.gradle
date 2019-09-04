@@ -9,6 +9,8 @@ dependencies {
     api 'com.squareup:javawriter:latest.release'
     api 'com.sun.codemodel:codemodel:latest.release'
     api rootProject.ext.dependencies["jsoup"]
+    api rootProject.ext.dependencies["okhttp"]
+    api rootProject.ext.dependencies["okio"]
 }
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"

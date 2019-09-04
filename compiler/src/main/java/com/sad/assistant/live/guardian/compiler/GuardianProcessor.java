@@ -148,7 +148,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                     ClassName.bestGuess("com.sad.assistant.live.guardian.api.IGuardian"),
                     "guardian",
                     Modifier.PRIVATE
-            ).initializer("$T.newInstance()",ClassName.bestGuess("com.sad.assistant.live.guardian.impl.DefaultGuardian"))
+            )
             .build();
 
             MethodSpec m_constructor=MethodSpec.constructorBuilder()

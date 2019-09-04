@@ -20,11 +20,11 @@ import com.sad.assistant.live.guardian.api.activity.IActivityDelegate;
 
 @GuardiaDelegate(name = "ACTIVITY_1")
 public class _GuardiaActivity1Delegate implements IActivityDelegate {
-    //注册广播接受者   当屏幕开启结果成功结束一像素的activity
+
     BroadcastReceiver br;
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
-        //设定一像素的activity
+
         Window window = activity.getWindow();
         window.setGravity(Gravity.START | Gravity.TOP);
         WindowManager.LayoutParams params = window.getAttributes();
@@ -33,7 +33,7 @@ public class _GuardiaActivity1Delegate implements IActivityDelegate {
         params.height = 2;
         params.width = 100;
         window.setAttributes(params);
-        //在一像素activity里注册广播接受者    接受到广播结束掉一像素
+
         br = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {

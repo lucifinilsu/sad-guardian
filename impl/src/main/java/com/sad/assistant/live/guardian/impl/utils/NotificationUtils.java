@@ -13,7 +13,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
 import com.sad.assistant.live.guardian.api.parameters.INotificationStyle;
-import com.sad.assistant.live.guardian.impl.R;
+import com.sad.assistant.live.guardian.api.R;
 import com.sad.basic.utils.app.AppInfoUtil;
 
 import java.lang.reflect.Constructor;
@@ -55,7 +55,7 @@ public class NotificationUtils extends ContextWrapper {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Notification.Builder getChannelNotification(String title, String content, int icon, Intent intent) {
-        //PendingIntent.FLAG_UPDATE_CURRENT 这个类型才能传值
+        //PendingIntent.FLAG_UPDATE_CURRENT这个类型才能传值
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 12, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return new Notification.Builder(context, id)
                 //.setActions(new Notification.Action(R.drawable.ic_default_notification_24dp,"停止运行",PendingIntent.getBroadcast(context,1,new Intent(), PendingIntent.FLAG_UPDATE_CURRENT)))
@@ -67,7 +67,7 @@ public class NotificationUtils extends ContextWrapper {
     }
 
     public NotificationCompat.Builder getNotification_25(String title, String content, int icon, Intent intent) {
-        //PendingIntent.FLAG_UPDATE_CURRENT 这个类型才能传值
+        //PendingIntent.FLAG_UPDATE_CURRENT这个类型才能传值
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return new NotificationCompat.Builder(context, id)
                 .setContentTitle(title)
@@ -104,7 +104,7 @@ public class NotificationUtils extends ContextWrapper {
 
     public static void updateNotification(Context context,INotificationStyle style){
         String title= AppInfoUtil.getAppName(context,context.getPackageName());
-        String content="正在运行中...";
+        String content="正在运行...";
         String des="";
         int icon = R.drawable.ic_default_notification_24dp;
         Intent intent=new Intent();

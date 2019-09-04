@@ -25,7 +25,8 @@ public final class _GuardiaBroadcastReceiver1Delegate implements IBroadcastRecei
     @Override
     public void onReceive(BroadcastReceiver broadcastReceiver,final Context context, Intent intent) {
         Log.e("keeplive","------------------------->屏幕变化监听"+intent.getAction());
-        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {    //屏幕关闭的时候接受到广播
+        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+            //屏幕关闭的时候接受到广播
             boolean appIsForeground = IsForeground(context);
             if (!appIsForeground){
                 Class<? extends Activity> activityClass= GuardiaActivity1.class;
