@@ -74,14 +74,22 @@ public class GuardiaTaskStudioImpl implements IGuardiaTaskStudio {
     @Override
     public void traverse(IGuardiaTasksClasseTraversedCallback traversedCallback) {
         Map<Integer, IGuardiaFuture> futureMap=new ConcurrentSkipListMap<>(Collections.reverseOrder());
-        while (_GUARDIA_TASKS.entrySet().iterator().hasNext()){
+        for (Integer key:_GUARDIA_TASKS.keySet()
+             ) {
+            Class<? extends IGuardiaTask> cls=_GUARDIA_TASKS.get(key);
+            if (traversedCallback!=null){
+                traversedCallback.OnTraversed(key,cls,this);
+            }
+        }
+
+        /*while (_GUARDIA_TASKS.entrySet().iterator().hasNext()){
             Map.Entry<Integer,Class<? extends IGuardiaTask>> entry=_GUARDIA_TASKS.entrySet().iterator().next();
             int key=entry.getKey();
             Class<? extends IGuardiaTask> cls=entry.getValue();
             if (traversedCallback!=null){
                 traversedCallback.OnTraversed(key,cls,this);
             }
-        }
+        }*/
     }
 
     private <D extends IGuardiaTask> D getTaskInstance(Integer s,Class<?>[] parametersType,Object... parameters) {

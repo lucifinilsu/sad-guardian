@@ -20,7 +20,7 @@ public class TestGuardiaTask implements IGuardiaTask {
     private long c=0;
     @Override
     public <F extends IGuardiaFuture> F onWork(Context context, ActionSource source, ICommunicant communicant) {
-        /*if (workExecutor==null){
+        if (workExecutor==null){
             workExecutor= Executors.newScheduledThreadPool(1);
             workExecutor.scheduleAtFixedRate(new Runnable() {
                 @Override
@@ -29,7 +29,7 @@ public class TestGuardiaTask implements IGuardiaTask {
                     Log.e("GUARDIAN","------------------------->任务执行第："+c+"次");
                 }
             },1,3, TimeUnit.SECONDS);
-        }*/
+        }
         //Log.e("GUARDIAN","------------------------->任务执行第："+c+"次");
         return null;
     }
