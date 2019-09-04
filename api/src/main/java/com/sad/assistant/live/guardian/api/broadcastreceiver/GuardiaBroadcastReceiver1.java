@@ -12,7 +12,11 @@ public class GuardiaBroadcastReceiver1 extends BroadcastReceiver{
 
     public IBroadcastReceiverDelegate getDelegate() {
         if (delegate==null){
-            delegate= GuardianSDK.getInstance().guardian().broadcastReceiver(1,true,false);
+            delegate= GuardianSDK.getInstance()
+                    .guardian()
+                    .delegateStudio()
+                    .androidComponentDelegateProvider()
+                    .broadcastReceiver(1);
         }
         return delegate;
     }

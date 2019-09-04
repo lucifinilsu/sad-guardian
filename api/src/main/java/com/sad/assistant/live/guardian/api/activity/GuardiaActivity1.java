@@ -13,7 +13,11 @@ public class GuardiaActivity1 extends AppCompatActivity {
 
     public IActivityDelegate getActivityDelegate() {
         if (delegate==null){
-            delegate= GuardianSDK.getInstance().guardian().activity(1,true,false);
+            delegate= GuardianSDK.getInstance()
+                    .guardian()
+                    .delegateStudio()
+                    .androidComponentDelegateProvider()
+                    .activity(1);
         }
         return delegate;
     }
