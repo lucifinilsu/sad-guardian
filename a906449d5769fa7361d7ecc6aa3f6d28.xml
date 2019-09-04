@@ -50,19 +50,19 @@
             <tag>7</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
-            <class>Service0Delegate</class>
+            <class>_GuardiaService0Delegate</class>
         </javaCode>
         <javaCode>
             <tag>8</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
-            <class>Service1Delegate</class>
+            <class>_GuardiaService1Delegate</class>
         </javaCode>
         <javaCode>
             <tag>9</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
-            <class>Service2Delegate</class>
+            <class>_GuardiaService2Delegate</class>
         </javaCode>
         <!--<javaCode>
             <tag>10</tag>
@@ -74,13 +74,13 @@
             <tag>11</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
-            <class>Service4Delegate</class>
+            <class>_GuardiaService4Delegate</class>
         </javaCode>
         <javaCode>
             <tag>12</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.delegate.service</package>
-            <class>Service5Delegate</class>
+            <class>_GuardiaService5Delegate</class>
         </javaCode>
         <javaCode>
             <tag>13</tag>
