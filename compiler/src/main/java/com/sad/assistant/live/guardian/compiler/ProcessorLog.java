@@ -25,7 +25,7 @@ public class ProcessorLog {
     }
 
     public boolean config_err(String mainPkgName,String moduleName,String gurdianId){
-        if (mainPkgName==null || "".equals(moduleName) || gurdianId==null || "".equals(gurdianId)){
+        if (mainPkgName==null ||moduleName==null || gurdianId==null ||  "".equals(moduleName) ||"".equals(gurdianId) || "".equals(mainPkgName)){
             error("未在Gradle脚本里配置AppPackageName或AppGurdianId,请按照以下格式配置app主包名和AppGurdianId：\n" +
                     "android{\n" +
                     "   ...\n"+

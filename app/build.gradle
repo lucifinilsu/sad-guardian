@@ -25,6 +25,7 @@ android {
             annotationProcessorOptions {
                 arguments = [
                         AppPackageName:rootProject.ext.android.applicationId,
+                        ModuleName:project.getName() ,
                         AppGurdianId:'123abc'
                 ]
             }
