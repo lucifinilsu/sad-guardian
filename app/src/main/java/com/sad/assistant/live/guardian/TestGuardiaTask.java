@@ -28,7 +28,7 @@ public class TestGuardiaTask implements IGuardiaTask {
                     c++;
                     Log.e("GUARDIAN","------------------------->任务执行第："+c+"次");
                 }
-            },1,3, TimeUnit.SECONDS);
+            },1,30, TimeUnit.SECONDS);
         }
         //Log.e("GUARDIAN","------------------------->任务执行第："+c+"次");
         return null;

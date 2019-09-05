@@ -20,20 +20,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*IBatteryOptimizer batteryOptimizer= GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_BATTERY");
-        batteryOptimizer.optimize(this);*/
+        IOptimizer batteryOptimizer= GuardianSDK.getInstance().guardian().delegateStudio().optimizerProvider().batteryOptimizer();
+        batteryOptimizer.optimize(this);
 
         /*IWifiSleepOptimizer wifiSleepOptimizer=GuardianSDK.getDefault().delegateStudio().getDelegateInstance("OPTIMIZE_WIFISLEEP");
         wifiSleepOptimizer.optimize(this);
         */
 
-        IOptimizer appBootOptimizer= GuardianSDK.getInstance()
+        /*IOptimizer appBootOptimizer= GuardianSDK.getInstance()
                 .guardian()
                 .delegateStudio()
                 .optimizerProvider()
                 .appBootOptimizer()
                 ;
-        appBootOptimizer.optimize(this);
+        appBootOptimizer.optimize(this);*/
 
         //registerContentObserver(this);
     }

@@ -15,7 +15,7 @@ import com.sad.assistant.live.guardian.api.init.IAppWork;
 
 @SuppressWarnings(value = {"unchecked", "deprecation"})
 @GuardiaDelegate(name = "BROADCASTRECEIVER_1")
-public final class _GuardiaBroadcastReceiver1Delegate implements IBroadcastReceiverDelegate {
+public class _GuardiaBroadcastReceiver1Delegate implements IBroadcastReceiverDelegate {
 
 
     public _GuardiaBroadcastReceiver1Delegate() {
@@ -23,7 +23,7 @@ public final class _GuardiaBroadcastReceiver1Delegate implements IBroadcastRecei
     }
 
     @Override
-    public void onReceive(BroadcastReceiver broadcastReceiver,final Context context, Intent intent) {
+    public void onReceive(BroadcastReceiver broadcastReceiver,Context context, Intent intent) {
         Log.e("keeplive","------------------------->屏幕变化监听"+intent.getAction());
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             //屏幕关闭的时候接受到广播
@@ -50,7 +50,7 @@ public final class _GuardiaBroadcastReceiver1Delegate implements IBroadcastRecei
                 .optimizerProvider()
                 .appWork(false,true);
         if (appWork!=null){
-            return appWork.isApplicationBackground();
+            return !appWork.isApplicationBackground();
         }
         return false;
     }
