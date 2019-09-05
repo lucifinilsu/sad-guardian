@@ -5,6 +5,12 @@
     <appPackage>com.sad.assistant.live.guardian</appPackage>
     <data enable='0'>
         <javaCode>
+            <tag>25</tag>
+            <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
+            <package>com.sad.assistant.live.guardian.impl.utils</package>
+            <class>Logger</class>
+        </javaCode>
+        <javaCode>
             <tag>0</tag>
             <baseUrl>https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/</baseUrl>
             <package>com.sad.assistant.live.guardian.impl.utils</package>
