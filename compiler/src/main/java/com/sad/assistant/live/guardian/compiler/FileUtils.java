@@ -5,6 +5,12 @@ import java.io.FileFilter;
 
 public class FileUtils {
 
+    public static String extractPackageName(File dir){
+        //"src"+File.pathSeparator+"main"+File.pathSeparator+"java"+File.pathSeparator
+        String[] p=dir.getAbsolutePath().split("src\\\\main\\\\java\\\\");
+        return p[1].replace("\\",".");
+    }
+
     private static boolean isDir(final File file) {
         return file != null && file.exists() && file.isDirectory();
     }

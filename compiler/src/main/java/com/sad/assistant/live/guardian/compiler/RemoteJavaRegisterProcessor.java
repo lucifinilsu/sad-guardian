@@ -178,7 +178,14 @@ public class RemoteJavaRegisterProcessor extends AbstractProcessor {
         FileUtils.scanAllFilesDir(new File(implPath), new FileFilter() {
             @Override
             public boolean accept(File file) {
-                return file.getAbsolutePath().endsWith(".java") || file.isDirectory();
+                if (!file.isDirectory()){
+                    String ex="_ImplModuleFlag.java";
+                    String fn=file.getAbsolutePath();
+                    return (fn.endsWith(".java") && !file.getName().equals(ex));
+                }
+                else {
+                    return true;
+                }
             }
         }, new IFileScanedCallback() {
             long tag=0;
@@ -190,7 +197,9 @@ public class RemoteJavaRegisterProcessor extends AbstractProcessor {
                 org.jsoup.nodes.Element javaCodeElement=dataElement.appendElement("javaCode");
                 javaCodeElement.appendElement("tag").appendText(tag+"");
                 javaCodeElement.appendElement("baseUrl").appendText(baseUrl);
-                javaCodeElement.appendElement("package").appendText(implPackage);
+                File dir=f.getParentFile();
+                String p=FileUtils.extractPackageName(dir);
+                javaCodeElement.appendElement("package").appendText(p);
                 javaCodeElement.appendElement("class").appendText(fileName);
             }
         });

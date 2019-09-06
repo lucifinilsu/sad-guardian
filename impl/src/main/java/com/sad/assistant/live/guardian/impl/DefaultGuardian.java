@@ -20,7 +20,7 @@ import com.sad.assistant.live.guardian.impl.utils.ProcessUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@SuppressWarnings("all")
 public class DefaultGuardian implements IGuardian {
 
 
