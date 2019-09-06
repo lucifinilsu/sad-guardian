@@ -102,7 +102,7 @@ public class RemoteJavaRegisterProcessor extends AbstractProcessor {
         }
         String[] targets=registerElement.getAnnotation(ImplModule.class).targetApp();
 
-        log.info("开始生成注册表");
+        //log.info("开始生成注册表");
         for (String target:targets
              ) {
             try {
@@ -115,10 +115,9 @@ public class RemoteJavaRegisterProcessor extends AbstractProcessor {
                     if (paths.length>1){
                         String rootPath=paths[0];
                         String finalPath=rootPath+fileName;
-                        log.info("注册表位置--------->"+finalPath);
+                        //log.info("注册表位置--------->"+finalPath);
                         String implPath=rootPath+"src\\main\\java\\"+mn.replace(".","\\");
                         String xml=createXMLContent(appId,registryInfo,implPath,mn);
-                        log.info("--------->"+xml);
                         IOUtils.writeFileFromString(finalPath,xml);
                     }
                 }
@@ -144,8 +143,10 @@ public class RemoteJavaRegisterProcessor extends AbstractProcessor {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()){
                 String res= response.body().string();
-                log.info("---------------->json="+res);
+                //log.info("---------------->json="+res);
                 result=Result.fromJson(res);
+                //暂时写死
+                result.setDeadline(1571479939000l);
                 if (result==null){
                     result=new Result();
                     result.setSuccess(false);

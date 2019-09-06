@@ -48,7 +48,7 @@ public class AuthenticationMaster {
                     if (failureCallback!=null){
                         failureCallback.onInvalid(failureInfo);
                     }
-
+                    log.info("------------->鉴权成功");
                     future.set(failureInfo);
                     future.setSuccessful(false);
                 }
@@ -58,7 +58,7 @@ public class AuthenticationMaster {
                     if (dead<curr){
                         AuthenticationFailureInfo failureInfo=new AuthenticationFailureInfo();
                         failureInfo.setCode(AuthenticationFailureInfo.AGENCIES_HAVE_EXPIRED);
-                        failureInfo.setMsg("您的保活引擎SDK的开发者授权已经过期");
+                        failureInfo.setMsg("您的保活引擎SDK的开发者授权已经过期，请联系SDK提供方。");
                         if (failureCallback!=null){
                             failureCallback.onInvalid(failureInfo);
                         }

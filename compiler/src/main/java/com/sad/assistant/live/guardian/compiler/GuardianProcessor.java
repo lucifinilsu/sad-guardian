@@ -110,6 +110,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
                 }
             },this,log);
             if (!future.isSuccessful()){
+                AuthenticationFailureInfo failureInfo= future.get();
                 return true;
             }
             else {
@@ -302,7 +303,7 @@ public class GuardianProcessor extends AbstractProcessor implements OnCompiledAu
 
     @Override
     public void onInvalid(AuthenticationFailureInfo info) {
-
+        log.error("鉴权校验错误："+info.getCode()+","+info.getMsg());
     }
 
     @Override
