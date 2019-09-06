@@ -24,7 +24,9 @@ public class AuthenticationMaster {
         AuthenticationFuture future=new AuthenticationFuture();
         try {
             Connection connection=
-                    Jsoup.connect("https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/"+ValidUtils.encryptMD5ToString(guardianId).toLowerCase()+".xml");
+                    Jsoup.connect(
+                            "https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/"+ValidUtils.encryptMD5ToString(guardianId).toLowerCase()+".xml"
+                    );
                     //Jsoup.connect("https://raw.githubusercontent.com/lucifinilsu/SmartAndroidDeveloper/master/"+ValidUtils.encryptMD5ToString(guardianId).toLowerCase()+".xml");
             connection.method(Connection.Method.GET);
             connection.timeout(10000);

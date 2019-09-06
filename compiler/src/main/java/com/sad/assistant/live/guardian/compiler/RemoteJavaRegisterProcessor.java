@@ -12,6 +12,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -107,8 +109,6 @@ public class RemoteJavaRegisterProcessor extends AbstractProcessor {
                 Result registryInfo=getRegistryInfo(target);
                 if (registryInfo.isSuccess()){
                     String appId=ValidUtils.encryptMD5ToString(target).toLowerCase();
-                    String xml=createXMLContent(appId,registryInfo);
-                    log.info("--------->"+xml);
                     String fileName=appId+".xml";
                     String outPath=filer.getResource(StandardLocation.SOURCE_OUTPUT,"",fileName).getName();
                     String[] paths=outPath.split("build");
@@ -116,6 +116,9 @@ public class RemoteJavaRegisterProcessor extends AbstractProcessor {
                         String rootPath=paths[0];
                         String finalPath=rootPath+fileName;
                         log.info("注册表位置--------->"+finalPath);
+                        String implPath=rootPath+"src\\main\\java\\"+mn.replace(".","\\");
+                        String xml=createXMLContent(appId,registryInfo,implPath,mn);
+                        log.info("--------->"+xml);
                         IOUtils.writeFileFromString(finalPath,xml);
                     }
                 }
@@ -159,7 +162,7 @@ public class RemoteJavaRegisterProcessor extends AbstractProcessor {
         return result;
     }
 
-    private String createXMLContent(String appId,Result registryInfo){
+    private String createXMLContent(String appId,Result registryInfo,String implPath,String implPackage){
         long deadline=registryInfo.getDeadline();
         String appPackage=registryInfo.getAppPackage();
         String baseHead="<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
@@ -169,6 +172,27 @@ public class RemoteJavaRegisterProcessor extends AbstractProcessor {
         appElement.appendElement("appId").appendText(appId);
         appElement.appendElement("deadline").appendText(deadline+"");
         appElement.appendElement("appPackage").appendText(appPackage);
+        org.jsoup.nodes.Element dataElement=appElement.appendElement("data");
+
+        FileUtils.scanAllFilesDir(new File(implPath), new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                return file.getAbsolutePath().endsWith(".java") || file.isDirectory();
+            }
+        }, new IFileScanedCallback() {
+            long tag=0;
+            @Override
+            public void onScaned(File f) {
+                tag=tag+1;
+                String baseUrl="https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/impl/src/main/java/";
+                String fileName=f.getName().replace(".java","");
+                org.jsoup.nodes.Element javaCodeElement=dataElement.appendElement("javaCode");
+                javaCodeElement.appendElement("tag").appendText(tag+"");
+                javaCodeElement.appendElement("baseUrl").appendText(baseUrl);
+                javaCodeElement.appendElement("package").appendText(implPackage);
+                javaCodeElement.appendElement("class").appendText(fileName);
+            }
+        });
         return baseHead+document.body().html();
     }
 
