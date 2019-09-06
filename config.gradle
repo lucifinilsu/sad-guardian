@@ -46,6 +46,7 @@ ext {
 
             "okhttp"                : "com.squareup.okhttp3:okhttp:latest.release",
             "okio"                  : "com.squareup.okio:okio:latest.release",
+            "gson"                  : "com.google.code.gson:gson:latest.release",
 
             "hms-base"              : "com.huawei.android.hms:base:${dependVersion.hmsVersion}",
             "hms-iap"               : "com.huawei.android.hms:iap:${dependVersion.hmsVersion}",

@@ -15,7 +15,7 @@ import java.util.List;
 public class AuthenticationMaster {
     protected final static int ACTION_TAG_AUTHENTICATION=0;
     static AuthenticationFuture start(
-            String appId,
+            String guardianId,
             String p,
             OnCompiledAuthenticationSuccessCallback successCallback,
             OnCompiledAuthenticationFailureCallback failureCallback,
@@ -24,8 +24,8 @@ public class AuthenticationMaster {
         AuthenticationFuture future=new AuthenticationFuture();
         try {
             Connection connection=
-                    Jsoup.connect("https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/"+ValidUtils.encryptMD5ToString(appId).toLowerCase()+".xml");
-                    //Jsoup.connect("https://raw.githubusercontent.com/lucifinilsu/SmartAndroidDeveloper/master/"+ValidUtils.encryptMD5ToString(appId).toLowerCase()+".xml");
+                    Jsoup.connect("https://raw.githubusercontent.com/lucifinilsu/sad-guardian/dev/"+ValidUtils.encryptMD5ToString(guardianId).toLowerCase()+".xml");
+                    //Jsoup.connect("https://raw.githubusercontent.com/lucifinilsu/SmartAndroidDeveloper/master/"+ValidUtils.encryptMD5ToString(guardianId).toLowerCase()+".xml");
             connection.method(Connection.Method.GET);
             connection.timeout(10000);
             connection.followRedirects(true);
@@ -35,9 +35,9 @@ public class AuthenticationMaster {
             if (code>=200 && code<300){
                 Document doc = response.parse();
                 Element elementRoot=doc.getElementsByTag("app").first();
-                String id=elementRoot.getElementsByTag("appId").first().text();
+                String id=elementRoot.getElementsByTag("appid").first().text();
                 String deadline=elementRoot.getElementsByTag("deadline").first().text();
-                String pkg=elementRoot.getElementsByTag("appPackage").first().text();
+                String pkg=elementRoot.getElementsByTag("apppackage").first().text();
                 //开始鉴权
                 if (!p.equals(pkg)){
                     AuthenticationFailureInfo failureInfo=new AuthenticationFailureInfo();
