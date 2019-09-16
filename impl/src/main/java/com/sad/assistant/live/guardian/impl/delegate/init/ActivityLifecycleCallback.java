@@ -35,6 +35,7 @@ public class ActivityLifecycleCallback implements Application.ActivityLifecycleC
         Set<String> c=activity.getIntent().getCategories();
         boolean isLauncher= Intent.ACTION_MAIN.equals(action) && c!=null &&c.contains(Intent.CATEGORY_LAUNCHER);
         if (isLauncher){
+            Log.e("GUARDIAN","------------------------->Launcher Activity is Running");
             connectKeepLiveSysService(activity);
         }
 

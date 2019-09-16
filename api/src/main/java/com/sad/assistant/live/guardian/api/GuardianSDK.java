@@ -3,6 +3,7 @@ package com.sad.assistant.live.guardian.api;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.sad.assistant.live.guardian.annotation.AppLiveGuardian;
 import com.sad.assistant.live.guardian.api.init.IAppWork;
@@ -73,6 +74,7 @@ public class GuardianSDK {
                         .optimizerProvider()
                         .appWork(false,true);
                 if (appWork!=null){
+                    Log.e("GUARDIAN","------------------------->appWork is Running");
                     appWork.initApplication(application);
                 }
             }
