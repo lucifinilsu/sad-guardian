@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import com.huawei.android.hms.agent.HMSAgent;
 import com.sad.assistant.live.guardian.annotation.GuardiaDelegate;
 import com.sad.assistant.live.guardian.api.AppConstant;
 import com.sad.assistant.live.guardian.api.GuardianSDK;
@@ -31,6 +32,7 @@ public class AppWorkImpl implements IAppWork {
 
     @Override
     public void initApplication(Application application) {
+        HMSAgent.init(application);
         application.registerActivityLifecycleCallbacks(activityLifecycleCallbacks(new IBackgroundSwitchListener() {
             @Override
             public void onChanged(Activity activity, boolean isBackground) {
