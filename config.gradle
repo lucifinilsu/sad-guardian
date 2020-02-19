@@ -4,7 +4,7 @@ ext {
             compileSdkVersion      : 29,
             buildToolsVersion      : "29.0.2",
             applicationId          : "com.sad.assistant.live.guardian",
-            minSdkVersion          : 19,
+            minSdkVersion          : 21,
             targetSdkVersion       : 29,
             versionCode            : 1,
             versionName            : "1.0"
